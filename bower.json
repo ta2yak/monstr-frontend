@@ -1,0 +1,21 @@
+{
+  "name": "monstr-frontend",
+  "version": "1.0.0",
+  "homepage": "https://github.com/ta2yak/monstr-frontend",
+  "authors": [
+    "Tatsuya Kawasaki <t-kawasaki@yc1.jp>"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.13.3",
+    "bootstrap": "~3.3.4"
+  }
+}
