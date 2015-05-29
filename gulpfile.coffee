@@ -6,6 +6,7 @@
 
 sources =
   bower:  'bower.json'
+  app:    'app/**/*'
   jsx:    'app/boot.jsx'
   less:   'app/**/*.less'
   static: 'public/**/*'
@@ -13,14 +14,20 @@ sources =
 libs =
   js: [
     'jquery/dist/jquery.min.js'
-    'bootstrap/dist/js/bootstrap/min.js'
-    'react/react.min.js'
+    'bootstrap/dist/js/bootstrap.min.js'
+    'bootstrap-material-design/dist/js/material.min.js'
+    'bootstrap-material-design/dist/js/ripples.min.js'
   ]
-  css:    [
-    'bootstrap/dist/**/*.min.css'
+  css: [
+    'bootstrap/dist/css/bootstrap.min.css'
+    'bootstrap-material-design/dist/css/material.min.css'
+    'bootstrap-material-design/dist/css/material-fullpalette.min.css'
+    'bootstrap-material-design/dist/css/ripples.min.css'
+    'bootstrap-material-design/dist/css/roboto.min.css'
   ]
   static: [
     'bootstrap/dist/**/*'
+    'bootstrap-material-design/dist/**/*'
   ]
 
 
@@ -31,6 +38,7 @@ concat      = require 'gulp-concat'
 coffee      = require 'gulp-coffee'
 less        = require 'gulp-less'
 nodemon     = require 'gulp-nodemon'
+plumber     = require 'gulp-plumber'
 uglify      = require 'gulp-uglify'
 streamify   = require 'gulp-streamify'
 source      = require 'vinyl-source-stream'
@@ -45,8 +53,7 @@ gulp.task 'clean', (cb) ->
 
 gulp.task 'watch', ->
   gulp.watch sources.bower,  ['compile:lib']
-  gulp.watch sources.jsx,    ['compile:jsx']
-  gulp.watch sources.less,   ['compile:less']
+  gulp.watch sources.app,    ['compile:jsx', 'compile:less']
   gulp.watch sources.static, ['compile:static']
 
 
@@ -71,6 +78,7 @@ gulp.task 'compile:jsx', ->
 
 gulp.task 'compile:less', ->
   gulp.src sources.less
+    .pipe plumber()
     .pipe less()
     .pipe concat 'app.css'
     .pipe gulp.dest 'target/webapp/'
@@ -78,7 +86,6 @@ gulp.task 'compile:less', ->
 gulp.task 'compile:static', ->
   gulp.src sources.static
     .pipe gulp.dest 'target/webapp/'
-
 
 gulp.task 'server', ['compile:apimock'], ->
   gulp.start 'watch', 'watch:apimock'
