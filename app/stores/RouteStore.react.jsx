@@ -1,6 +1,7 @@
 var MonstrAppDispatcher = require('../dispatcher/MonstrAppDispatcher.js');
 var MonstrConstants = require('../constants/MonstrConstants.js');
 var SessionStore = require('../stores/SessionStore.react.jsx');
+var PostStore = require('../stores/PostStore.react.jsx');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
@@ -54,13 +55,11 @@ RouteStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
     case ActionTypes.LOGIN_RESPONSE:
       if (SessionStore.isLoggedIn()) {
         router.transitionTo('app');
-        // Dirty hack, need to figure this out
-        $(document).foundation();
       }
       break;
     
-    case ActionTypes.RECEIVE_CREATED_STORY:
-      router.transitionTo('app');
+    case ActionTypes.RECEIVE_CREATED_POST:
+      router.transitionTo('new-post');
       break;
 
     default:

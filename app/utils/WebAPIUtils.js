@@ -14,6 +14,18 @@ function _getErrors(res) {
   return errorMsgs;
 }
 
+function _getSuccesses(res) {
+  var successMsgs = ["Suucessful !!"];
+  if ((json = JSON.parse(res.text))) {
+    if (json['successes']) {
+      successMsgs = json['successes'];
+    } else if (json['success']) {
+      successMsgs = [json['success']];
+    }
+  }
+  return successMsgs;
+}
+
 var APIEndpoints = MonstrConstants.APIEndpoints;
 
 module.exports = {
@@ -57,43 +69,43 @@ module.exports = {
       });
   },
 
-  loadStories: function() {
-    request.get(APIEndpoints.STORIES)
+  loadPosts: function() {
+    request.get(APIEndpoints.POSTS)
       .set('Accept', 'application/json')
       .set('Authorization', sessionStorage.getItem('accessToken'))
       .end(function(error, res){
         if (res) {
           json = JSON.parse(res.text);
-          ServerActionCreators.receiveStories(json);
+          ServerActionCreators.receivePosts(json);
         }
       });
   },
 
-  loadStory: function(storyId) {
-    request.get(APIEndpoints.STORIES + '/' + storyId)
+  loadPost: function(postId) {
+    request.get(APIEndpoints.POSTS + '/' + postId)
       .set('Accept', 'application/json')
       .set('Authorization', sessionStorage.getItem('accessToken'))
       .end(function(error, res){
         if (res) {
           json = JSON.parse(res.text);
-          ServerActionCreators.receiveStory(json);
+          ServerActionCreators.receivePost(json);
         }
       });
   },
 
-  createStory: function(title, body) {
-    request.post(APIEndpoints.STORIES)
+  createPost: function(title, body) {
+    request.post(APIEndpoints.POSTS)
       .set('Accept', 'application/json')
       .set('Authorization', sessionStorage.getItem('accessToken'))
-      .send({ story: { title: title, body: body } })
+      .send({ post: { title: title, body: body } })
       .end(function(error, res){
         if (res) {
           if (res.error) {
             var errorMsgs = _getErrors(res);
-            ServerActionCreators.receiveCreatedStory(null, errorMsgs);
+            ServerActionCreators.receiveCreatedPost(null, errorMsgs);
           } else {
             json = JSON.parse(res.text);
-            ServerActionCreators.receiveCreatedStory(json, null);
+            ServerActionCreators.receiveCreatedPost(json, null);
           }
         }
       });

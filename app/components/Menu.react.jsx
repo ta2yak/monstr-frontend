@@ -2,6 +2,7 @@ var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
 var SessionActionCreators = require('../actions/SessionActionCreators.react.jsx');
+var RouteActionCreators = require('../actions/RouteActionCreators.react.jsx');
 
 var Menu = React.createClass({
 
@@ -13,63 +14,54 @@ var Menu = React.createClass({
   _logout: function(e) {
     e.preventDefault();
     SessionActionCreators.logout();
+    RouteActionCreators.redirect('app');
   },
 
   render: function() {
 
     var menuItems = this.props.isLoggedIn ? (
 
-      <ul id="sidebar" className="nav nav-stacked">
-        <li>
-
-          <div className="btn-group-vertical" role="group">
-            <Link to="new-post">
-              <button className="btn btn-primary btn-flat btn-block">
-                <i className="mdi-action-note-add"></i>
-                <br/>
-                NEW POST
-              </button>
-            </Link>
-            <button className="btn btn-primary btn-flat btn-block" onClick={this._logout}>
-              <i className="mdi-action-settings-power"></i>
-              <br/>
-              Logout
-            </button>
-          </div>
-
-        </li>
-      </ul>
+      <div className="btn-group-vertical btn-group-justified" role="group">
+        <Link to="new-post">
+          <button className="btn btn-xs btn-primary btn-flat btn-block">
+            <i className="mdi-action-note-add"></i>
+            <br/>
+            NEW POST
+          </button>
+        </Link>
+        <a onClick={this._logout}>
+          <button className="btn btn-xs btn-primary btn-flat btn-block">
+            <i className="mdi-action-settings-power"></i>
+            <br/>
+            Logout
+          </button>
+        </a>
+      </div>
 
     ) : (
 
-      <ul id="sidebar" className="nav nav-stacked">
-        <li>
-
-          <div className="btn-group-vertical" role="group">
-            <Link to="login">
-              <button className="btn btn-primary btn-flat btn-block">
-                <i className="mdi-action-settings-power"></i>
-                <br/>
-                Login
-              </button>
-            </Link>
-            <Link to="signup">
-              <button className="btn btn-primary btn-flat btn-block">
-                <i className="mdi-action-settings-power"></i>
-                <br/>
-                Signup
-              </button>
-            </Link>
-          </div>
-
-        </li>
-      </ul>
+      <div className="btn-group-vertical btn-group-justified" role="group">
+        <Link to="login">
+          <button className="btn btn-xs btn-primary btn-flat btn-block">
+            <i className="mdi-action-settings-power"></i>
+            <br/>
+            Login
+          </button>
+        </Link>
+        <Link to="signup">
+          <button className="btn btn-xs btn-primary btn-flat btn-block">
+            <i className="mdi-action-settings-power"></i>
+            <br/>
+            Signup
+          </button>
+        </Link>
+      </div>
 
     );
 
     return (
 
-      <div>
+      <div className="menu spacer">
         {menuItems}
       </div>
 

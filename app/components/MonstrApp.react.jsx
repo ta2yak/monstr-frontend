@@ -38,7 +38,7 @@ var MonstrApp = React.createClass({
               isLoggedIn={this.state.isLoggedIn}
               email={this.state.email} />
           </div>
-          <div className="col-md-10 col-md-offset-1">
+          <div className="col-md-11">
             <RouteHandler />
           </div>
         </div>

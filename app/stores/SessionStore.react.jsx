@@ -11,6 +11,7 @@ var CHANGE_EVENT = 'change';
 var _accessToken = sessionStorage.getItem('accessToken');
 var _email = sessionStorage.getItem('email');
 var _errors = [];
+var _successes = [];
 
 var SessionStore = assign({}, EventEmitter.prototype, {
   
@@ -36,6 +37,10 @@ var SessionStore = assign({}, EventEmitter.prototype, {
 
   getEmail: function() {
     return _email;
+  },
+
+  getSuccesses: function() {
+    return _successes;
   },
 
   getErrors: function() {
@@ -71,7 +76,7 @@ SessionStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       SessionStore.emitChange();
       break;
 
-    default:
+      default:
   }
   
   return true;
