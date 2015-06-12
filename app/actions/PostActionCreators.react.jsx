@@ -1,6 +1,12 @@
-var ServerActionCreators = require('../actions/ServerActionCreators.react.jsx');
+var MonstrAppDispatcher = require('../dispatcher/MonstrAppDispatcher.js');
 var MonstrConstants = require('../constants/MonstrConstants.js');
+
+var ServerActionCreators = require('../actions/ServerActionCreators.react.jsx');
 var request = require('superagent');
+
+
+var APIEndpoints = MonstrConstants.APIEndpoints;
+var ActionTypes = MonstrConstants.ActionTypes;
 
 function _getErrors(res) {
   var errorMsgs = ["Something went wrong, please try again"];
@@ -26,50 +32,15 @@ function _getSuccesses(res) {
   return successMsgs;
 }
 
-var APIEndpoints = MonstrConstants.APIEndpoints;
+
 
 module.exports = {
 
-  signup: function(email, username, password, passwordConfirmation) {
-    request.post(APIEndpoints.REGISTRATION)
-      .send({ user: { 
-        email: email, 
-        username: username,
-        password: password,
-        password_confirmation: passwordConfirmation
-      }})
-      .set('Accept', 'application/json')
-      .end(function(error, res) {
-        if (res) {
-          if (res.error) {
-            var errorMsgs = _getErrors(res);
-            ServerActionCreators.receiveLogin(null, errorMsgs);
-          } else {
-            json = JSON.parse(res.text);
-            ServerActionCreators.receiveLogin(json, null);
-          }
-        }
-      });
-  },
+	loadPosts: function() {
+  	MonstrAppDispatcher.handleViewAction({
+  		type: ActionTypes.LOAD_POSTS
+  	});
 
-  login: function(email, password) {
-    request.post(APIEndpoints.LOGIN)
-      .send({ username: email, password: password, grant_type: 'password' })
-      .set('Accept', 'application/json')
-      .end(function(error, res){
-        if (res) {
-          if (res.error) {
-            var errorMsgs = _getErrors(res);
-            ServerActionCreators.receiveLogin(null, errorMsgs);
-          } else {
-            json = JSON.parse(res.text);
-            ServerActionCreators.receiveLogin(json, null);
-          }
-        }
-      });
-  },
-
-  loadPosts: function() {
     request.get(APIEndpoints.POSTS)
       .set('Accept', 'application/json')
       .set('Authorization', sessionStorage.getItem('accessToken'))
@@ -79,9 +50,14 @@ module.exports = {
           ServerActionCreators.receivePosts(json);
         }
       });
-  },
+	},
+  
+	loadPost: function(postId) {
+  	MonstrAppDispatcher.handleViewAction({
+  		type: ActionTypes.LOAD_POST,
+  		postId: postId
+  	});
 
-  loadPost: function(postId) {
     request.get(APIEndpoints.POSTS + '/' + postId)
       .set('Accept', 'application/json')
       .set('Authorization', sessionStorage.getItem('accessToken'))
@@ -91,13 +67,44 @@ module.exports = {
           ServerActionCreators.receivePost(json);
         }
       });
-  },
+	},
 
-  createPost: function(title, body) {
+	createCommitPost: function(title, body) {
+  	MonstrAppDispatcher.handleViewAction({
+  		type: ActionTypes.CREATE_POST,
+  		title: title,
+  		body: body
+  	});
+
     request.post(APIEndpoints.POSTS)
       .set('Accept', 'application/json')
       .set('Authorization', sessionStorage.getItem('accessToken'))
-      .send({ post: { title: title, body: body } })
+      .send({ post: { title: title, body: body, is_commit: true } })
+      .end(function(error, res){
+        if (res) {
+          if (res.error) {
+            var errorMsgs = _getErrors(res);
+            ServerActionCreators.receiveCreatedPost(null, errorMsgs);
+          } else {
+            json = JSON.parse(res.text);
+            ServerActionCreators.receiveCreatedPost(json, null);
+          }
+        }
+      });
+
+	},
+
+  createWipPost: function(title, body) {
+    MonstrAppDispatcher.handleViewAction({
+      type: ActionTypes.CREATE_POST,
+      title: title,
+      body: body
+    });
+
+    request.post(APIEndpoints.POSTS)
+      .set('Accept', 'application/json')
+      .set('Authorization', sessionStorage.getItem('accessToken'))
+      .send({ post: { title: title, body: body, is_commit: false } })
       .end(function(error, res){
         if (res) {
           if (res.error) {
@@ -110,5 +117,5 @@ module.exports = {
         }
       });
   }
-
+  
 };

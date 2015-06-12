@@ -6,7 +6,8 @@ module.exports = {
   APIEndpoints: {
     LOGIN:          APIRoot + "/api/v1/auth",
     REGISTRATION:   APIRoot + "/api/v1/auth",
-    POSTS:        APIRoot + "/api/v1/posts"
+    SEARCH:         APIRoot + "/api/v1/search",
+    POSTS:          APIRoot + "/api/v1/posts"
   },
 
   PayloadSources: {
@@ -23,6 +24,10 @@ module.exports = {
 
     // Routes
     REDIRECT: "REDIRECT",
+
+    // Search
+    SEARCH: "SEARCH",
+    SEARCH_RESPONSE: "SEARCH_RESPONSE",
 
     // Posts
     CREATE_POST: "CREATE_POST",

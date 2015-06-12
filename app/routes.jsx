@@ -9,6 +9,7 @@ var LoginPage = require('./components/session/LoginPage.react.jsx');
 var SignupPage = require('./components/session/SignupPage.react.jsx');
 
 var PostNewPage = require('./components/post/NewPage.react.jsx');
+var PostsPage = require('./components/post/IndexPage.react.jsx');
 
 module.exports = (
   <Route name="app" path="/" handler={MonstrApp}>
@@ -17,5 +18,6 @@ module.exports = (
     <Route name="login" path="/login" handler={LoginPage}/>
     <Route name="signup" path="/signup" handler={SignupPage}/>
     <Route name="new-post" path="/post/new" handler={PostNewPage}/>
+    <Route name="posts" path="/posts" handler={PostsPage}/>
 </Route>
 );

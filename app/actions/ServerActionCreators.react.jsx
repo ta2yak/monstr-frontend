@@ -13,6 +13,14 @@ module.exports = {
     });
   },
 
+  receiveSearchResults: function(json, errors) {
+    MonstrAppDispatcher.handleServerAction({
+      type: ActionTypes.SEARCH_RESPONSE,
+      json: json,
+      errors: errors
+    });
+  },
+
   receiveCreatedPost: function(json, errors) {
     MonstrAppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_CREATED_POST,

@@ -2,13 +2,13 @@ var MonstrAppDispatcher = require('../dispatcher/MonstrAppDispatcher.js');
 var MonstrConstants = require('../constants/MonstrConstants.js');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
-var WebAPIUtils = require('../utils/WebAPIUtils.js');
 
 var ActionTypes = MonstrConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _posts = [];
 var _errors = [];
+var _successes= [];
 var _post = { title: "", body: "", user: { username: "" } };
 
 var PostStore = assign({}, EventEmitter.prototype, {
@@ -25,7 +25,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getAllPosts: function() {
+  getPosts: function() {
     return _posts;
   },
 
@@ -35,6 +35,10 @@ var PostStore = assign({}, EventEmitter.prototype, {
 
   getErrors: function() {
     return _errors;
+  },
+
+  getSuccesses: function() {
+    return _successes;
   }
 
 });
@@ -43,6 +47,12 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.type) {
+
+    case ActionTypes.SEARCH_RESPONSE:
+      // 検索結果からPOST情報のみを取得しイベントを通知する
+      _posts = action.json.posts;
+      PostStore.emitChange();
+      break;
     
     case ActionTypes.RECEIVE_POSTS:
       _posts = action.json.posts;
@@ -53,9 +63,12 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       if (action.json) {
         _posts.unshift(action.json.post);
         _errors = [];
+        _successes = [];
       }
       if (action.errors) {
         _errors = action.errors;
+      }else{
+        _successes = ["登録しました"];
       }
       PostStore.emitChange();
       break;
@@ -64,9 +77,12 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       if (action.json) {
         _post = action.json.post;
         _errors = [];
+        _success = [];
       }
       if (action.errors) {
         _errors = action.errors;
+      }else{
+        _successes = [];
       }
       PostStore.emitChange();
       break;

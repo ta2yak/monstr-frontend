@@ -15,11 +15,14 @@ libs =
   js: [
     'jquery/dist/jquery.min.js'
     'bootstrap/dist/js/bootstrap.min.js'
+    'react/react.min.js'
+    'react-treeview/react-treeview.js'
     'bootstrap-material-design/dist/js/material.min.js'
     'bootstrap-material-design/dist/js/ripples.min.js'
   ]
   css: [
     'bootstrap/dist/css/bootstrap.min.css'
+    'react-treeview/react-treeview.css'
     'bootstrap-material-design/dist/css/material.min.css'
     'bootstrap-material-design/dist/css/material-fullpalette.min.css'
     'bootstrap-material-design/dist/css/ripples.min.css'
@@ -34,6 +37,7 @@ libs =
 bower       = require 'bower'
 del         = require 'del'
 gulp        = require 'gulp'
+gutil       = require 'gulp-util'
 concat      = require 'gulp-concat'
 coffee      = require 'gulp-coffee'
 less        = require 'gulp-less'
@@ -72,6 +76,9 @@ gulp.task 'compile:jsx', ->
   browserify sources.jsx
     .transform reactify
     .bundle()
+    .on 'error', (err) ->
+      console.log gutil.colors.red "Oops! you have ERROR! \n" + err.message
+      this.emit 'end'
     .pipe source "app.js"
     .pipe streamify uglify()
     .pipe gulp.dest 'target/webapp/'
@@ -101,5 +108,6 @@ gulp.task 'watch:apimock', ->
 
 gulp.task 'compile:apimock', ->
   gulp.src 'apimock.coffee'
+    .pipe plumber()
     .pipe coffee()
     .pipe gulp.dest 'target/'
