@@ -16,13 +16,11 @@ libs =
     'jquery/dist/jquery.min.js'
     'bootstrap/dist/js/bootstrap.min.js'
     'react/react.min.js'
-    'react-treeview/react-treeview.js'
     'bootstrap-material-design/dist/js/material.min.js'
     'bootstrap-material-design/dist/js/ripples.min.js'
   ]
   css: [
     'bootstrap/dist/css/bootstrap.min.css'
-    'react-treeview/react-treeview.css'
     'bootstrap-material-design/dist/css/material.min.css'
     'bootstrap-material-design/dist/css/material-fullpalette.min.css'
     'bootstrap-material-design/dist/css/ripples.min.css'
@@ -80,7 +78,7 @@ gulp.task 'compile:jsx', ->
       console.log gutil.colors.red "Oops! you have ERROR! \n" + err.message
       this.emit 'end'
     .pipe source "app.js"
-    .pipe streamify uglify()
+    # .pipe streamify uglify()
     .pipe gulp.dest 'target/webapp/'
 
 gulp.task 'compile:less', ->

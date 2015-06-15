@@ -21,6 +21,14 @@ module.exports = {
     });
   },
 
+  receivePostTreeResults: function(json, errors) {
+    MonstrAppDispatcher.handleServerAction({
+      type: ActionTypes.RECEIVE_POST_TREE,
+      json: json,
+      errors: errors
+    });
+  },
+
   receiveCreatedPost: function(json, errors) {
     MonstrAppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_CREATED_POST,

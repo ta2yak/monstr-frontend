@@ -5,12 +5,13 @@ var SessionStore = require('../../stores/SessionStore.react.jsx');
 var PostStore = require('../../stores/PostStore.react.jsx');
 var ErrorNotice = require('../../components/common/ErrorNotice.react.jsx');
 var SuccessNotice = require('../../components/common/SuccessNotice.react.jsx');
+var TreeView = require('../../components/common/TreeView.react.jsx');
 var markdown = require('markdown').markdown;
 
 var PostNewPage = React.createClass({
 
   getInitialState: function() {
-    return { posts: [], errors: [] };
+    return { post: [], errors: [] };
   },
 
   componentDidMount: function() {
@@ -26,7 +27,10 @@ var PostNewPage = React.createClass({
   },
 
   _onChange: function() {
-    this.setState({posts: PostStore.getPosts(), errors: PostStore.getErrors()});
+    this.setState({
+        post: PostStore.getPost(), 
+        errors: PostStore.getErrors()
+    });
   },
 
   render: function() {
@@ -39,7 +43,7 @@ var PostNewPage = React.createClass({
         {errors}
 
         <div className="col-md-3">
-
+          <TreeView />
         </div>
 
         <div className="col-md-6">
