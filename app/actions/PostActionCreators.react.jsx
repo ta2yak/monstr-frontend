@@ -36,22 +36,6 @@ function _getSuccesses(res) {
 
 module.exports = {
 
-  loadTree: function() {
-    MonstrAppDispatcher.handleViewAction({
-      type: ActionTypes.LOAD_POST_TREE
-    });
-
-    request.get(APIEndpoints.POSTS + "/tree")
-      .set('Accept', 'application/json')
-      .set('Authorization', sessionStorage.getItem('accessToken'))
-      .end(function(error, res){
-        if (res) {
-          json = JSON.parse(res.text);
-          ServerActionCreators.receivePostTreeResults(json);
-        }
-      });
-  },
-
 	loadPosts: function() {
   	MonstrAppDispatcher.handleViewAction({
   		type: ActionTypes.LOAD_POSTS

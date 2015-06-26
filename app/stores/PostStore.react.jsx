@@ -7,7 +7,6 @@ var ActionTypes = MonstrConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _posts = [];
-var _tree = [];
 var _errors = [];
 var _successes= [];
 var _post = { title: "", body: "", user: { username: "" } };
@@ -24,10 +23,6 @@ var PostStore = assign({}, EventEmitter.prototype, {
 
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
-  },
-
-  getTree: function() {
-    return _tree;
   },
 
   getPosts: function() {
@@ -92,19 +87,6 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       PostStore.emitChange();
       break;
 
-    case ActionTypes.RECEIVE_POST_TREE:
-      if (action.json) {
-        _tree = action.json.posts;
-        _errors = [];
-        _success = [];
-      }
-      if (action.errors) {
-        _errors = action.errors;
-      }else{
-        _successes = [];
-      }
-      PostStore.emitChange();
-      break;
   }
 
   return true;

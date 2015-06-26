@@ -1,30 +1,37 @@
 var React = require('react');
-var PostActionCreators = require('../../actions/PostActionCreators.react.jsx');
-var PostStore = require('../../stores/PostStore.react.jsx');
 
-var TreeView = React.createClass({
+var IndexActionCreators = require('../../actions/IndexActionCreators.react.jsx');
+var PostActionCreators = require('../../actions/PostActionCreators.react.jsx');
+
+var IndexStore = require('../../stores/IndexStore.react.jsx');
+
+var PostIndexTree = React.createClass({
   getInitialState: function() {
       return {data: []};
   },
 
   componentDidMount: function() {
-    PostStore.addChangeListener(this._onChange);
-    PostActionCreators.loadTree();
+    IndexStore.addChangeListener(this._onChange);
+    IndexActionCreators.loadIndex();
   },
 
   componentWillUnmount: function() {
-    PostStore.removeChangeListener(this._onChange);
+    IndexStore.removeChangeListener(this._onChange);
   },
 
   _onChange: function() {
     this.setState({
-        data: PostStore.getTree()
+        data: IndexStore.getIndexes()
     });
   },
 
   _genNode: function(nodes){
 
     var navTree = function(nodes, depth){
+
+      var onSelect = function(id){
+        PostActionCreators.loadPost(id);
+      }
 
       var indents = [];
       for (var i = 0; i < depth - 1; i++) {
@@ -54,7 +61,9 @@ var TreeView = React.createClass({
           return (
             <div className="accordion-inner" key={node.id}>
               {indents}
-              <i className="mdi-action-description"></i> {node.title}
+              <a onClick={onSelect.bind(this, node.post)}>
+                <i className="mdi-action-description"></i> {node.title}
+              </a>
             </div>
           );
         }
@@ -70,7 +79,6 @@ var TreeView = React.createClass({
   render: function() {
 
     var treeCollapse = this._genNode(this.state.data);
-    console.log(treeCollapse)
 
     return (
 
@@ -82,4 +90,4 @@ var TreeView = React.createClass({
   }
 });
 
-module.exports = TreeView;
+module.exports = PostIndexTree;

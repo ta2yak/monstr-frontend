@@ -21,31 +21,31 @@ var Menu = React.createClass({
 
     var menuItems = this.props.isLoggedIn ? (
 
-      <div className="btn-group-vertical btn-group-justified" role="group">
+      <div className="btn-group-justified">
         <Link to="welcome">
-          <button className="btn btn-xs btn-primary btn-flat btn-block">
+          <button className="btn btn-xs btn-primary btn-block">
             <i className="glyphicon glyphicon-home"></i>
             <br/>
             Home
           </button>
         </Link>
         <Link to="new-post">
-          <button className="btn btn-xs btn-primary btn-flat btn-block">
+          <button className="btn btn-xs btn-primary btn-block">
             <i className="mdi-action-note-add"></i>
             <br/>
             NEW POST
           </button>
         </Link>
         <Link to="posts">
-          <button className="btn btn-xs btn-primary btn-flat btn-block">
+          <button className="btn btn-xs btn-primary btn-block">
             <i className="mdi-editor-insert-drive-file"></i>
             <br/>
             POSTS
           </button>
         </Link>
-        <hr/>
+        <div className="spacer" />
         <a onClick={this._logout}>
-          <button className="btn btn-xs btn-primary btn-flat btn-block">
+          <button className="btn btn-xs btn-primary btn-block">
             <i className="mdi-action-settings-power"></i>
             <br/>
             Logout
@@ -55,23 +55,23 @@ var Menu = React.createClass({
 
     ) : (
 
-      <div className="btn-group-vertical btn-group-justified" role="group">
+      <div className="btn-group-justified">
         <Link to="welcome">
-          <button className="btn btn-xs btn-primary btn-flat btn-block">
+          <button className="btn btn-xs btn-primary btn-block">
             <i className="glyphicon glyphicon-home"></i>
             <br/>
             Home
           </button>
         </Link>
         <Link to="login">
-          <button className="btn btn-xs btn-primary btn-flat btn-block">
+          <button className="btn btn-xs btn-primary btn-block">
             <i className="glyphicon glyphicon-log-in"></i>
             <br/>
             Login
           </button>
         </Link>
         <Link to="signup">
-          <button className="btn btn-xs btn-primary btn-flat btn-block">
+          <button className="btn btn-xs btn-primary btn-block">
             <i className="glyphicon glyphicon-fire"></i>
             <br/>
             Signup
@@ -83,7 +83,7 @@ var Menu = React.createClass({
 
     return (
 
-      <div className="menu spacer">
+      <div className="menu spacer well-material-teal-500">
         {menuItems}
       </div>
 

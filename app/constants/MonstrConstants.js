@@ -7,6 +7,7 @@ module.exports = {
     LOGIN:          APIRoot + "/api/v1/auth",
     REGISTRATION:   APIRoot + "/api/v1/auth",
     SEARCH:         APIRoot + "/api/v1/search",
+    INDEX:          APIRoot + "/api/v1/index",
     POSTS:          APIRoot + "/api/v1/posts"
   },
 
@@ -39,8 +40,8 @@ module.exports = {
     LOAD_POST: "LOAD_POST",
     RECEIVE_POST: "RECEIVE_POST",
 
-    LOAD_POST_TREE: "LOAD_POST_TREE",
-    RECEIVE_POST_TREE: "RECEIVE_POST_TREE"
+    LOAD_INDEX: "LOAD_INDEX",
+    RECEIVE_INDEX: "RECEIVE_INDEX"
   }
 
 };

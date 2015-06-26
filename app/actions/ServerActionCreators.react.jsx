@@ -5,6 +5,7 @@ var ActionTypes = MonstrConstants.ActionTypes;
 
 module.exports = {
 
+  /** AUTH **/
   receiveLogin: function(json, errors) {
     MonstrAppDispatcher.handleServerAction({
       type: ActionTypes.LOGIN_RESPONSE,
@@ -13,6 +14,7 @@ module.exports = {
     });
   },
 
+  /** SEARCH **/
   receiveSearchResults: function(json, errors) {
     MonstrAppDispatcher.handleServerAction({
       type: ActionTypes.SEARCH_RESPONSE,
@@ -21,9 +23,27 @@ module.exports = {
     });
   },
 
-  receivePostTreeResults: function(json, errors) {
+  /** INDEX MENU **/
+  receiveIndexResults: function(json, errors) {
     MonstrAppDispatcher.handleServerAction({
-      type: ActionTypes.RECEIVE_POST_TREE,
+      type: ActionTypes.RECEIVE_INDEX,
+      json: json,
+      errors: errors
+    });
+  },
+
+  /** POST **/
+  receivePost: function(json, errors) {
+    MonstrAppDispatcher.handleServerAction({
+      type: ActionTypes.RECEIVE_POST,
+      json: json,
+      errors: errors
+    });
+  },
+
+  receivePosts: function(json, errors) {
+    MonstrAppDispatcher.handleServerAction({
+      type: ActionTypes.RECEIVE_POSTS,
       json: json,
       errors: errors
     });
