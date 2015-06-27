@@ -11,6 +11,9 @@ sources =
   less:   'app/**/*.less'
   static: 'public/**/*'
 
+dist =
+  deploy: '../monstr-backend/public'
+
 libs =
   js: [
     'jquery/dist/jquery.min.js'
@@ -64,11 +67,14 @@ gulp.task 'compile:lib', ->
     gulp.src libs.js.map (e) -> "bower_components/#{e}"
       .pipe concat 'lib.js'
       .pipe gulp.dest 'target/webapp/'
+      .pipe gulp.dest dist.deploy
     gulp.src libs.css.map (e) -> "bower_components/#{e}"
       .pipe concat 'lib.css'
       .pipe gulp.dest 'target/webapp/'
+      .pipe gulp.dest dist.deploy
     gulp.src libs.static.map (e) -> "bower_components/#{e}"
       .pipe gulp.dest 'target/webapp/'
+      .pipe gulp.dest dist.deploy
 
 gulp.task 'compile:jsx', ->
   browserify sources.jsx
@@ -80,6 +86,7 @@ gulp.task 'compile:jsx', ->
     .pipe source "app.js"
     # .pipe streamify uglify()
     .pipe gulp.dest 'target/webapp/'
+    .pipe gulp.dest dist.deploy
 
 gulp.task 'compile:less', ->
   gulp.src sources.less
@@ -87,10 +94,12 @@ gulp.task 'compile:less', ->
     .pipe less()
     .pipe concat 'app.css'
     .pipe gulp.dest 'target/webapp/'
+    .pipe gulp.dest dist.deploy
 
 gulp.task 'compile:static', ->
   gulp.src sources.static
     .pipe gulp.dest 'target/webapp/'
+    .pipe gulp.dest dist.deploy
 
 gulp.task 'server', ['compile:apimock'], ->
   gulp.start 'watch', 'watch:apimock'

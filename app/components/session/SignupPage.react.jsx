@@ -8,7 +8,7 @@ var SignupPage = React.createClass({
   getInitialState: function() {
     return { errors: [] };
   },
- 
+
   componentDidMount: function() {
     SessionStore.addChangeListener(this._onChange);
   },

@@ -1,38 +1,11 @@
 var MonstrAppDispatcher = require('../dispatcher/MonstrAppDispatcher.js');
 var MonstrConstants = require('../constants/MonstrConstants.js');
 
-var ServerActionCreators = require('../actions/ServerActionCreators.react.jsx');
+var ActionHelper = require('../actions/common/ActionHelper.react.jsx');
 var request = require('superagent');
-
 
 var APIEndpoints = MonstrConstants.APIEndpoints;
 var ActionTypes = MonstrConstants.ActionTypes;
-
-function _getErrors(res) {
-  var errorMsgs = ["Something went wrong, please try again"];
-  if ((json = JSON.parse(res.text))) {
-    if (json['errors']) {
-      errorMsgs = json['errors'];
-    } else if (json['error']) {
-      errorMsgs = [json['error']];
-    }
-  }
-  return errorMsgs;
-}
-
-function _getSuccesses(res) {
-  var successMsgs = ["Suucessful !!"];
-  if ((json = JSON.parse(res.text))) {
-    if (json['successes']) {
-      successMsgs = json['successes'];
-    } else if (json['success']) {
-      successMsgs = [json['success']];
-    }
-  }
-  return successMsgs;
-}
-
-
 
 module.exports = {
 
@@ -45,13 +18,10 @@ module.exports = {
       .set('Accept', 'application/json')
       .set('Authorization', sessionStorage.getItem('accessToken'))
       .end(function(error, res){
-        if (res) {
-          json = JSON.parse(res.text);
-          ServerActionCreators.receivePosts(json);
-        }
+        ActionHelper.dispatch(ActionTypes.RECEIVE_POSTS, error ,res)
       });
 	},
-  
+
 	loadPost: function(postId) {
   	MonstrAppDispatcher.handleViewAction({
   		type: ActionTypes.LOAD_POST,
@@ -62,10 +32,7 @@ module.exports = {
       .set('Accept', 'application/json')
       .set('Authorization', sessionStorage.getItem('accessToken'))
       .end(function(error, res){
-        if (res) {
-          json = JSON.parse(res.text);
-          ServerActionCreators.receivePost(json);
-        }
+        ActionHelper.dispatch(ActionTypes.RECEIVE_POST, error ,res)
       });
 	},
 
@@ -81,15 +48,7 @@ module.exports = {
       .set('Authorization', sessionStorage.getItem('accessToken'))
       .send({ post: { title: title, body: body, is_commit: true } })
       .end(function(error, res){
-        if (res) {
-          if (res.error) {
-            var errorMsgs = _getErrors(res);
-            ServerActionCreators.receiveCreatedPost(null, errorMsgs);
-          } else {
-            json = JSON.parse(res.text);
-            ServerActionCreators.receiveCreatedPost(json, null);
-          }
-        }
+        ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
       });
 
 	},
@@ -106,16 +65,8 @@ module.exports = {
       .set('Authorization', sessionStorage.getItem('accessToken'))
       .send({ post: { title: title, body: body, is_commit: false } })
       .end(function(error, res){
-        if (res) {
-          if (res.error) {
-            var errorMsgs = _getErrors(res);
-            ServerActionCreators.receiveCreatedPost(null, errorMsgs);
-          } else {
-            json = JSON.parse(res.text);
-            ServerActionCreators.receiveCreatedPost(json, null);
-          }
-        }
+        ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
       });
   }
-  
+
 };
