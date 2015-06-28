@@ -1,7 +1,7 @@
 var MonstrAppDispatcher = require('../dispatcher/MonstrAppDispatcher.js');
 var MonstrConstants = require('../constants/MonstrConstants.js');
 
-var ActionHelper = require('../actions/common/ActionHelper.react.jsx');
+var ActionHelper = require('../actions/ActionHelper.react.jsx');
 var request = require('superagent');
 
 var APIEndpoints = MonstrConstants.APIEndpoints;
@@ -16,7 +16,10 @@ module.exports = {
 
     request.get(APIEndpoints.POSTS)
       .set('Accept', 'application/json')
-      .set('Authorization', sessionStorage.getItem('accessToken'))
+			.set('access-token', sessionStorage.getItem('accessToken'))
+      .set('uid', sessionStorage.getItem('uid'))
+      .set('expiry', sessionStorage.getItem('expiry'))
+      .set('client', sessionStorage.getItem('client'))
       .end(function(error, res){
         ActionHelper.dispatch(ActionTypes.RECEIVE_POSTS, error ,res)
       });
@@ -30,7 +33,10 @@ module.exports = {
 
     request.get(APIEndpoints.POSTS + '/' + postId)
       .set('Accept', 'application/json')
-      .set('Authorization', sessionStorage.getItem('accessToken'))
+			.set('access-token', sessionStorage.getItem('accessToken'))
+      .set('uid', sessionStorage.getItem('uid'))
+      .set('expiry', sessionStorage.getItem('expiry'))
+      .set('client', sessionStorage.getItem('client'))
       .end(function(error, res){
         ActionHelper.dispatch(ActionTypes.RECEIVE_POST, error ,res)
       });
@@ -45,8 +51,11 @@ module.exports = {
 
     request.post(APIEndpoints.POSTS)
       .set('Accept', 'application/json')
-      .set('Authorization', sessionStorage.getItem('accessToken'))
-      .send({ post: { title: title, body: body, is_commit: true } })
+			.set('access-token', sessionStorage.getItem('accessToken'))
+      .set('uid', sessionStorage.getItem('uid'))
+      .set('expiry', sessionStorage.getItem('expiry'))
+      .set('client', sessionStorage.getItem('client'))
+      .send({ post: { title: title, body: body, is_wip: false } })
       .end(function(error, res){
         ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
       });
@@ -62,8 +71,11 @@ module.exports = {
 
     request.post(APIEndpoints.POSTS)
       .set('Accept', 'application/json')
-      .set('Authorization', sessionStorage.getItem('accessToken'))
-      .send({ post: { title: title, body: body, is_commit: false } })
+			.set('access-token', sessionStorage.getItem('accessToken'))
+      .set('uid', sessionStorage.getItem('uid'))
+      .set('expiry', sessionStorage.getItem('expiry'))
+      .set('client', sessionStorage.getItem('client'))
+      .send({ post: { title: title, body: body, is_wip: true } })
       .end(function(error, res){
         ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
       });

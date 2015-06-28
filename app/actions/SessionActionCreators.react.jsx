@@ -1,7 +1,7 @@
 var MonstrAppDispatcher = require('../dispatcher/MonstrAppDispatcher.js');
 var MonstrConstants = require('../constants/MonstrConstants.js');
 
-var ActionHelper = require('../actions/common/ActionHelper.react.jsx');
+var ActionHelper = require('../actions/ActionHelper.react.jsx');
 var request = require('superagent');
 
 var APIEndpoints = MonstrConstants.APIEndpoints;
@@ -40,7 +40,11 @@ module.exports = {
     });
 
     request.post(APIEndpoints.LOGIN)
-      .send({ username: email, password: password, grant_type: 'password' })
+      .send({
+        email: email,
+        password: password,
+        grant_type: 'password'
+      })
       .set('Accept', 'application/json')
       .end(function(error, res){
         ActionHelper.dispatch(ActionTypes.LOGIN_RESPONSE, error ,res)

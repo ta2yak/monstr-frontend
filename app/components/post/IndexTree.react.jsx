@@ -44,7 +44,7 @@ var PostIndexTree = React.createClass({
 
           return (
             <div className="accordion-group" key={node.id}>
-              <div className="accordion-heading"> 
+              <div className="accordion-heading">
                 {indents}
                 <a className="accordion-toggle" data-toggle="collapse" href={"#collapse-"+node.id}>
                   <i className="mdi-file-folder-open"></i> {node.title}

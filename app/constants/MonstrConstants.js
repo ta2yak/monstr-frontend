@@ -5,7 +5,7 @@ var APIRoot = "http://localhost:3000";   // Local Backend Server
 module.exports = {
 
   APIEndpoints: {
-    LOGIN:          APIRoot + "/api/v1/auth",
+    LOGIN:          APIRoot + "/api/v1/auth/sign_in",
     REGISTRATION:   APIRoot + "/api/v1/auth",
     SEARCH:         APIRoot + "/api/v1/search",
     INDEX:          APIRoot + "/api/v1/index",

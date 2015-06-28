@@ -3,18 +3,21 @@ var MonstrConstants = require('../constants/MonstrConstants.js');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
+var PayloadSources = MonstrConstants.PayloadSources;
 var ActionTypes = MonstrConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 // Load an access token from the session storage, you might want to implement
 // a 'remember me' using localSgorage
 var _accessToken = sessionStorage.getItem('accessToken');
-var _email = sessionStorage.getItem('email');
+var _uid = sessionStorage.getItem('uid');
+var _client = sessionStorage.getItem('client');
+var _expiry = sessionStorage.getItem('expiry');
 var _errors = [];
 var _successes = [];
 
 var SessionStore = assign({}, EventEmitter.prototype, {
-  
+
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -28,15 +31,23 @@ var SessionStore = assign({}, EventEmitter.prototype, {
   },
 
   isLoggedIn: function() {
-    return _accessToken ? true : false;    
+    return _accessToken ? true : false;
   },
 
   getAccessToken: function() {
     return _accessToken;
   },
 
-  getEmail: function() {
-    return _email;
+  getUId: function() {
+    return _uid;
+  },
+
+  getClient: function() {
+    return _client;
+  },
+
+  getExpiry: function() {
+    return _expiry;
   },
 
   getSuccesses: function() {
@@ -50,21 +61,41 @@ var SessionStore = assign({}, EventEmitter.prototype, {
 });
 
 SessionStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
-  var action = payload.action;
+  _errors = []
+  _successes = [];
+
+    var action = payload.action;
+
+  // reflesh auth on each request
+  switch(payload.source) {
+    case PayloadSources.SERVER_ACTION:
+
+      if (action.header && action.header['access-token']) {
+        _accessToken = action.header['access-token'];
+        _uid = action.header.uid;
+        _expiry = action.header.expiry;
+        _client = action.header.client;
+
+        // Token will always live in the session, so that the API can grab it with no hassle
+        sessionStorage.setItem('accessToken', _accessToken);
+        sessionStorage.setItem('uid', _uid);
+        sessionStorage.setItem('client', _client);
+        sessionStorage.setItem('expiry', _expiry);
+
+      }
+    break;
+  }
 
   switch(action.type) {
 
     case ActionTypes.LOGIN_RESPONSE:
-      if (action.json && action.json.access_token) {
-        _accessToken = action.json.access_token;
-        _email = action.json.email;
-        // Token will always live in the session, so that the API can grab it with no hassle
-        sessionStorage.setItem('accessToken', _accessToken);
-        sessionStorage.setItem('email', _email);
-      }
+
       if (action.errors) {
         _errors = action.errors;
+      }else{
+        _successes = ["Welcome to Monstr !!"]
       }
+
       SessionStore.emitChange();
       break;
 
@@ -72,13 +103,15 @@ SessionStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       _accessToken = null;
       _email = null;
       sessionStorage.removeItem('accessToken');
-      sessionStorage.removeItem('email');
+      sessionStorage.removeItem('uid');
+      sessionStorage.removeItem('client');
+      sessionStorage.removeItem('expiry');
       SessionStore.emitChange();
       break;
 
       default:
   }
-  
+
   return true;
 });
 

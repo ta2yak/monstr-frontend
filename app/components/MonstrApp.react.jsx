@@ -6,8 +6,7 @@ var RouteStore = require('../stores/RouteStore.react.jsx');
 
 function getStateFromStores() {
   return {
-    isLoggedIn: SessionStore.isLoggedIn(),
-    email: SessionStore.getEmail()
+    isLoggedIn: SessionStore.isLoggedIn()
   };
 }
 
@@ -16,7 +15,7 @@ var MonstrApp = React.createClass({
   getInitialState: function() {
     return getStateFromStores();
   },
-  
+
   componentDidMount: function() {
     SessionStore.addChangeListener(this._onChange);
   },
@@ -34,7 +33,7 @@ var MonstrApp = React.createClass({
       <div className="app container">
         <div className="row">
           <div className="col-md-1">
-            <Menu 
+            <Menu
               isLoggedIn={this.state.isLoggedIn}
               email={this.state.email} />
           </div>

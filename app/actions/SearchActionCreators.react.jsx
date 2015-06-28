@@ -1,7 +1,7 @@
 var MonstrAppDispatcher = require('../dispatcher/MonstrAppDispatcher.js');
 var MonstrConstants = require('../constants/MonstrConstants.js');
 
-var ActionHelper = require('../actions/common/ActionHelper.react.jsx');
+var ActionHelper = require('../actions/ActionHelper.react.jsx');
 var request = require('superagent');
 
 var APIEndpoints = MonstrConstants.APIEndpoints;

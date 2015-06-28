@@ -39,7 +39,10 @@ var IndexStore = assign({}, EventEmitter.prototype, {
 });
 
 IndexStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
-  var action = payload.action;
+  _errors = []
+  _successes = [];
+
+    var action = payload.action;
 
   switch(action.type) {
 

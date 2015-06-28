@@ -44,6 +44,9 @@ var PostStore = assign({}, EventEmitter.prototype, {
 });
 
 PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
+  _errors = []
+  _successes = [];
+
   var action = payload.action;
 
   switch(action.type) {
@@ -53,18 +56,13 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       _posts = action.json.posts;
       PostStore.emitChange();
       break;
-    
+
     case ActionTypes.RECEIVE_POSTS:
       _posts = action.json.posts;
       PostStore.emitChange();
       break;
 
     case ActionTypes.RECEIVE_CREATED_POST:
-      if (action.json) {
-        _posts.unshift(action.json.post);
-        _errors = [];
-        _successes = [];
-      }
       if (action.errors) {
         _errors = action.errors;
       }else{
@@ -72,7 +70,7 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       }
       PostStore.emitChange();
       break;
-    
+
     case ActionTypes.RECEIVE_POST:
       if (action.json) {
         _post = action.json.post;

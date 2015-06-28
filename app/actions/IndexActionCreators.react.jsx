@@ -1,7 +1,7 @@
 var MonstrAppDispatcher = require('../dispatcher/MonstrAppDispatcher.js');
 var MonstrConstants = require('../constants/MonstrConstants.js');
 
-var ActionHelper = require('../actions/common/ActionHelper.react.jsx');
+var ActionHelper = require('../actions/ActionHelper.react.jsx');
 var request = require('superagent');
 
 var APIEndpoints = MonstrConstants.APIEndpoints;
@@ -16,7 +16,10 @@ module.exports = {
 
     request.get(APIEndpoints.INDEX + "/all")
       .set('Accept', 'application/json')
-      .set('Authorization', sessionStorage.getItem('accessToken'))
+      .set('access-token', sessionStorage.getItem('accessToken'))
+      .set('uid', sessionStorage.getItem('uid'))
+      .set('expiry', sessionStorage.getItem('expiry'))
+      .set('client', sessionStorage.getItem('client'))
       .end(function(error, res){
         ActionHelper.dispatch(ActionTypes.RECEIVE_INDEX, error ,res)
       });
