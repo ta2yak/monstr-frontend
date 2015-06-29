@@ -1,4 +1,6 @@
 var React = require('react');
+var Router = require('react-router');
+var Link = Router.Link;
 
 var RouteActionCreators = require('../../actions/RouteActionCreators.react.jsx');
 var PostActionCreators = require('../../actions/PostActionCreators.react.jsx');
@@ -19,7 +21,7 @@ var PostIndexPage = React.createClass({
   },
 
   componentDidMount: function() {
-    if (!SessionStore.isLoggedIn()) { 
+    if (!SessionStore.isLoggedIn()) {
       RouteActionCreators.redirect('app');
     }else{
       PostStore.addChangeListener(this._onChange);
@@ -32,7 +34,7 @@ var PostIndexPage = React.createClass({
 
   _onChange: function() {
     this.setState({
-        post: PostStore.getPost(), 
+        post: PostStore.getPost(),
         errors: PostStore.getErrors()
     });
   },
@@ -40,6 +42,13 @@ var PostIndexPage = React.createClass({
   render: function() {
     var errors = (this.state.errors.length > 0) ? <ErrorNotice errors={this.state.errors}/> : <div></div>;
     var html = this.state.post.body ? markdown.toHTML(this.state.post.body) : ""
+    var editButton = this.state.post.title ? (
+      <div className="col-md-4 col-md-offset-4">
+        <Link to="edit-post">
+          <button className="btn btn-primary" type="button">修正する</button>
+        </Link>
+      </div>
+    ) : <div></div>;
 
     return (
 
@@ -57,6 +66,7 @@ var PostIndexPage = React.createClass({
           </div>
           <div className="col-md-12">
             <div dangerouslySetInnerHTML={{__html: html}} />
+            {editButton}
           </div>
         </div>
 

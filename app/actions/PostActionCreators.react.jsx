@@ -79,6 +79,45 @@ module.exports = {
       .end(function(error, res){
         ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
       });
+  },
+
+	updateCommitPost: function(postId, title, body) {
+  	MonstrAppDispatcher.handleViewAction({
+  		type: ActionTypes.UPDATE_POST,
+  		title: title,
+  		body: body
+  	});
+
+    request.put(APIEndpoints.POSTS + '/' + postId)
+      .set('Accept', 'application/json')
+			.set('access-token', sessionStorage.getItem('accessToken'))
+      .set('uid', sessionStorage.getItem('uid'))
+      .set('expiry', sessionStorage.getItem('expiry'))
+      .set('client', sessionStorage.getItem('client'))
+      .send({ post: { title: title, body: body, is_wip: false } })
+      .end(function(error, res){
+        ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_POST, error ,res)
+      });
+
+	},
+
+  updateWipPost: function(postId, title, body) {
+    MonstrAppDispatcher.handleViewAction({
+      type: ActionTypes.UPDATE_POST,
+      title: title,
+      body: body
+    });
+
+    request.put(APIEndpoints.POSTS + '/' + postId)
+      .set('Accept', 'application/json')
+			.set('access-token', sessionStorage.getItem('accessToken'))
+      .set('uid', sessionStorage.getItem('uid'))
+      .set('expiry', sessionStorage.getItem('expiry'))
+      .set('client', sessionStorage.getItem('client'))
+      .send({ post: { title: title, body: body, is_wip: true } })
+      .end(function(error, res){
+        ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_POST, error ,res)
+      });
   }
 
 };

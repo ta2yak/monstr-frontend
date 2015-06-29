@@ -71,6 +71,15 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       PostStore.emitChange();
       break;
 
+    case ActionTypes.RECEIVE_UPDATED_POST:
+      if (action.errors) {
+        _errors = action.errors;
+      }else{
+        _successes = ["更新しました"];
+      }
+      PostStore.emitChange();
+      break;
+
     case ActionTypes.RECEIVE_POST:
       if (action.json) {
         _post = action.json.post;
