@@ -118,6 +118,22 @@ module.exports = {
       .end(function(error, res){
         ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_POST, error ,res)
       });
+  },
+
+	deletePost: function(postId) {
+    MonstrAppDispatcher.handleViewAction({
+      type: ActionTypes.DELETE_POST
+    });
+
+    request.del(APIEndpoints.POSTS + '/' + postId)
+      .set('Accept', 'application/json')
+			.set('access-token', sessionStorage.getItem('accessToken'))
+      .set('uid', sessionStorage.getItem('uid'))
+      .set('expiry', sessionStorage.getItem('expiry'))
+      .set('client', sessionStorage.getItem('client'))
+      .end(function(error, res){
+        ActionHelper.dispatch(ActionTypes.RECEIVE_DELETED_POST, error ,res)
+      });
   }
 
 };

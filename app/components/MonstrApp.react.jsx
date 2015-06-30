@@ -33,9 +33,7 @@ var MonstrApp = React.createClass({
       <div className="app container">
         <div className="row">
           <div className="col-md-1">
-            <Menu
-              isLoggedIn={this.state.isLoggedIn}
-              email={this.state.email} />
+            <Menu isLoggedIn={this.state.isLoggedIn} />
           </div>
           <div className="col-md-11">
             <RouteHandler />

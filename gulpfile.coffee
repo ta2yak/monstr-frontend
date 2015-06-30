@@ -31,7 +31,7 @@ libs =
   ]
   static: [
     'bootstrap/dist/**/*'
-    'bootstrap-material-design/dist/**/*'
+    'bootstrap-material-design/dist/fonts/**/*'
   ]
 
 

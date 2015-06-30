@@ -7,8 +7,7 @@ var RouteActionCreators = require('../actions/RouteActionCreators.react.jsx');
 var Menu = React.createClass({
 
   propTypes: {
-    isLoggedIn: React.PropTypes.bool,
-    email: React.PropTypes.string
+    isLoggedIn: React.PropTypes.bool
   },
 
   _logout: function(e) {

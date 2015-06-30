@@ -1,8 +1,10 @@
 var React = require('react');
 
+var RouteActionCreators = require('../../actions/RouteActionCreators.react.jsx');
 var IndexActionCreators = require('../../actions/IndexActionCreators.react.jsx');
 var PostActionCreators = require('../../actions/PostActionCreators.react.jsx');
 
+var SessionStore = require('../../stores/SessionStore.react.jsx');
 var IndexStore = require('../../stores/IndexStore.react.jsx');
 
 var PostIndexTree = React.createClass({
@@ -11,8 +13,12 @@ var PostIndexTree = React.createClass({
   },
 
   componentDidMount: function() {
-    IndexStore.addChangeListener(this._onChange);
-    IndexActionCreators.loadIndex();
+    if (!SessionStore.isLoggedIn()) {
+      RouteActionCreators.redirect('app');
+    }else{
+      IndexStore.addChangeListener(this._onChange);
+      IndexActionCreators.loadIndex();
+    }
   },
 
   componentWillUnmount: function() {

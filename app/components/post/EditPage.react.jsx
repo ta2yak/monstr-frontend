@@ -55,6 +55,12 @@ var PostEditPage = React.createClass({
     PostActionCreators.updateWipPost(this.state.post.id, title, body);
   },
 
+  _onDelete: function(e) {
+    e.preventDefault();
+    this.setState({ errors: [], successes: [] });
+    PostActionCreators.deletePost(this.state.post.id);
+  },
+
   render: function() {
     var errors = (this.state.errors.length > 0) ? <ErrorNotice errors={this.state.errors}/> : <div></div>;
     var successes = (this.state.successes.length > 0) ? <SuccessNotice successes={this.state.successes}/> : <div></div>;
@@ -69,10 +75,10 @@ var PostEditPage = React.createClass({
 
         <div className="col-md-6">
           <div className="col-md-12">
-            <input type="text"　ref="title" value={this.state.post.title} className="form-control floating-label input-lg" placeholder="title (/ により階層分類が可能です ex. /2015/06/01/日報)" />
+            <input type="text"　ref="title" defaultValue={this.state.post.title} className="form-control floating-label input-lg" placeholder="title (/ により階層分類が可能です ex. /2015/06/01/日報)" />
           </div>
           <div className="col-md-12 spacer">
-            <textarea　ref="body" value={this.state.post.body} className="form-control floating-label" placeholder="Markdown Text" onChange={this._onUpdateMarkdown} rows="30" />
+            <textarea　ref="body" defaultValue={this.state.post.body} className="form-control floating-label" placeholder="Markdown Text" onChange={this._onUpdateMarkdown} rows="30" />
           </div>
         </div>
 
@@ -86,6 +92,7 @@ var PostEditPage = React.createClass({
           <div className="col-md-4 col-md-offset-4">
             <button className="btn btn-info" type="button" onClick={this._onWIP}>WIP</button>
             <button className="btn btn-primary" type="button" onClick={this._onCommit}>更新</button>
+            <button className="btn btn-danger" type="button" onClick={this._onDelete}>削除</button>
           </div>
         </div>
 
