@@ -11,7 +11,9 @@ var MonstrAppDispatcher = assign(new Dispatcher(), {
       source: PayloadSources.SERVER_ACTION,
       action: action
     };
-    this.dispatch(payload);
+    setTimeout(function(){
+      this.dispatch(payload);
+    }.bind(this))
   },
 
   handleViewAction: function(action) {
@@ -19,7 +21,9 @@ var MonstrAppDispatcher = assign(new Dispatcher(), {
       source: PayloadSources.VIEW_ACTION,
       action: action
     };
-    this.dispatch(payload);
+    setTimeout(function(){
+      this.dispatch(payload);
+    }.bind(this))
   }
 });
 

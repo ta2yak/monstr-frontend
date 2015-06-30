@@ -25,6 +25,9 @@ var PostIndexPage = React.createClass({
       RouteActionCreators.redirect('app');
     }else{
       PostStore.addChangeListener(this._onChange);
+      this.setState({
+          post: PostStore.getPost()
+      });
     }
   },
 

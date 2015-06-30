@@ -17,7 +17,7 @@ var ActionTypes = MonstrConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var RouteStore = assign({}, EventEmitter.prototype, {
-  
+
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -45,26 +45,26 @@ RouteStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
   ]);
 
   var action = payload.action;
-  
+
   switch(action.type) {
 
     case ActionTypes.REDIRECT:
-      router.transitionTo(action.route);
+      router.transitionTo(action.route)
       break;
 
-    case ActionTypes.LOGIN_RESPONSE:
-      if (SessionStore.isLoggedIn()) {
-        router.transitionTo('app');
-      }
-      break;
-    
-    case ActionTypes.RECEIVE_CREATED_POST:
-      router.transitionTo('new-post');
-      break;
+    // case ActionTypes.LOGIN_RESPONSE:
+    //   if (SessionStore.isLoggedIn()) {
+    //     router.transitionTo('app');
+    //   }
+    //   break;
+    //
+    // case ActionTypes.RECEIVE_CREATED_POST:
+    //   router.transitionTo('new-post');
+    //   break;
 
     default:
   }
-  
+
   return true;
 });
 

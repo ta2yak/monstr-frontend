@@ -33,6 +33,10 @@ var PostStore = assign({}, EventEmitter.prototype, {
     return _post;
   },
 
+  isError: function() {
+    return _errors.length > 0 ? true : false;
+  },
+
   getErrors: function() {
     return _errors;
   },

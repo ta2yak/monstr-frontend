@@ -14,7 +14,7 @@ var PostNewPage = React.createClass({
   },
 
   componentDidMount: function() {
-    if (!SessionStore.isLoggedIn()) { 
+    if (!SessionStore.isLoggedIn()) {
       RouteActionCreators.redirect('app');
     }else{
       PostStore.addChangeListener(this._onChange);
@@ -26,7 +26,11 @@ var PostNewPage = React.createClass({
   },
 
   _onChange: function() {
-    this.setState({successes: PostStore.getSuccesses(), errors: PostStore.getErrors()});
+    if (PostStore.isError()){
+      this.setState({errors: PostStore.getErrors()});
+    }else{
+      RouteActionCreators.redirect('posts');
+    }
   },
 
   _onUpdateMarkdown: function(event){
