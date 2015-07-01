@@ -46,11 +46,9 @@ var PostIndexPage = React.createClass({
     var errors = (this.state.errors.length > 0) ? <ErrorNotice errors={this.state.errors}/> : <div></div>;
     var html = this.state.post.body ? markdown.toHTML(this.state.post.body) : ""
     var editButton = this.state.post.title ? (
-      <div className="col-md-4 col-md-offset-4">
-        <Link to="edit-post">
-          <button className="btn btn-primary" type="button">修正する</button>
-        </Link>
-      </div>
+      <Link to="edit-post">
+        <button className="btn btn-primary pull-right" type="button">修正する</button>
+      </Link>
     ) : <div></div>;
 
     return (
@@ -64,13 +62,21 @@ var PostIndexPage = React.createClass({
         </div>
 
         <div className="col-md-8">
+
           <div className="col-md-12">
             <h1>{this.state.post.title}</h1>
           </div>
+
           <div className="col-md-12">
             <div dangerouslySetInnerHTML={{__html: html}} />
-            {editButton}
           </div>
+
+          <div className="col-md-12">
+            <div className="col-md-6 col-md-offset-6">
+              {editButton}
+            </div>
+          </div>
+
         </div>
 
         <div className="col-md-2">
