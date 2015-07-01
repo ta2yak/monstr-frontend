@@ -95,6 +95,8 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.RECEIVE_POST:
+      console.log(action.json.post);
+      console.log(action.json.post.id);
       if (action.json) {
         _post = action.json.post;
         _errors = [];

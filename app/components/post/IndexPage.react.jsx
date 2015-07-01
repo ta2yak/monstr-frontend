@@ -60,7 +60,7 @@ var PostIndexPage = React.createClass({
         {errors}
 
         <div className="col-md-2">
-          <IndexTree />
+          <IndexTree/>
         </div>
 
         <div className="col-md-8">

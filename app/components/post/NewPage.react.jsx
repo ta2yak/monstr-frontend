@@ -65,24 +65,27 @@ var PostNewPage = React.createClass({
         {errors}
 
         <div className="col-md-6">
+
           <div className="col-md-12">
-            <input type="text"　ref="title" className="form-control floating-label input-lg" placeholder="title (/ により階層分類が可能です ex. /2015/06/01/日報)" />
+            <input type="text"　ref="title" className="form-control floating-label input-lg" placeholder="title (/ により階層分類が可能です ex. Application/Setup/Install)" />
           </div>
+
           <div className="col-md-12 spacer">
-            <textarea　ref="body" className="form-control floating-label" placeholder="Markdown Text" onInput={this._onUpdateMarkdown} rows="30" />
+            <textarea　ref="body" className="form-control floating-label" placeholder="Markdown Text" onInput={this._onUpdateMarkdown} rows="20" />
           </div>
+
+          <div className="col-md-12">
+            <div className="col-md-6 col-md-offset-6">
+              <button className="btn btn-info pull-right" type="button" onClick={this._onWIP}>WIP</button>
+              <button className="btn btn-primary pull-right" type="button" onClick={this._onCommit}>登録</button>
+            </div>
+          </div>
+
         </div>
 
         <div className="col-md-6">
           <div className="preview">
             <div dangerouslySetInnerHTML={{__html: html}} />
-          </div>
-        </div>
-
-        <div className="col-md-12">
-          <div className="col-md-4 col-md-offset-4">
-            <button className="btn btn-info" type="button" onClick={this._onWIP}>WIP</button>
-            <button className="btn btn-primary" type="button" onClick={this._onCommit}>登録</button>
           </div>
         </div>
 
