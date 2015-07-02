@@ -51,6 +51,30 @@ var PostIndexPage = React.createClass({
       </Link>
     ) : <div></div>;
 
+    var revisions = this.state.post.title ? this.state.post.revisions.map(function(revision, index){
+      var diffs = revision.diff_text.split('\n').map(function(text, i){
+          return (
+            <p key={i}><small>{text}</small></p>
+          )
+      });
+
+      return (
+
+        <div className="panel panel-default" key={index}>
+          <div className="panel-heading clearfix">
+            <h3 className="panel-title pull-left">{revision.headline}</h3>
+          </div>
+          <div className="panel-body">
+            {diffs}
+          </div>
+          <div className="panel-footer">
+            <small>{revision.created_at}</small>
+          </div>
+        </div>
+
+      )
+    }) : <div></div>;
+
     return (
 
       <div className="row spacer">
@@ -61,7 +85,7 @@ var PostIndexPage = React.createClass({
           <IndexTree/>
         </div>
 
-        <div className="col-md-8">
+        <div className="col-md-6">
 
           <div className="col-md-12">
             <h1>{this.state.post.title}</h1>
@@ -79,8 +103,8 @@ var PostIndexPage = React.createClass({
 
         </div>
 
-        <div className="col-md-2">
-          {this.state.post.revisions}
+        <div className="col-md-4">
+          {revisions}
         </div>
 
       </div>

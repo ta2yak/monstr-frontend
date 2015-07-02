@@ -18,19 +18,22 @@ libs =
   js: [
     'jquery/dist/jquery.min.js'
     'bootstrap/dist/js/bootstrap.min.js'
+    'bootcards/dist/js/bootcards.min.js'
     'react/react.min.js'
     'bootstrap-material-design/dist/js/material.min.js'
     'bootstrap-material-design/dist/js/ripples.min.js'
   ]
   css: [
     'bootstrap/dist/css/bootstrap.min.css'
+    'bootcards/dist/css/bootcards-desktop.min.css'
     'bootstrap-material-design/dist/css/material.min.css'
     'bootstrap-material-design/dist/css/material-fullpalette.min.css'
     'bootstrap-material-design/dist/css/ripples.min.css'
     'bootstrap-material-design/dist/css/roboto.min.css'
   ]
   static: [
-    'bootstrap/dist/**/*'
+    'bootstrap/dist/fonts/**/*'
+    'bootcards/dist/fonts/**/*'
     'bootstrap-material-design/dist/fonts/**/*'
   ]
 

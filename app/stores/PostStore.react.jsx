@@ -70,6 +70,7 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       if (action.errors) {
         _errors = action.errors;
       }else{
+        _post = action.json.post;
         _successes = ["登録しました"];
       }
       PostStore.emitChange();
@@ -79,6 +80,7 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       if (action.errors) {
         _errors = action.errors;
       }else{
+        _post = action.json.post;
         _successes = ["更新しました"];
       }
       PostStore.emitChange();
@@ -95,8 +97,6 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       break;
 
     case ActionTypes.RECEIVE_POST:
-      console.log(action.json.post);
-      console.log(action.json.post.id);
       if (action.json) {
         _post = action.json.post;
         _errors = [];
