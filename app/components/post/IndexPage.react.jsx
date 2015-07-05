@@ -13,6 +13,7 @@ var SuccessNotice = require('../../components/common/SuccessNotice.react.jsx');
 var IndexTree = require('../../components/post/IndexTree.react.jsx');
 
 var markdown = require('markdown').markdown;
+var moment = require('moment');
 
 var PostIndexPage = React.createClass({
 
@@ -63,13 +64,24 @@ var PostIndexPage = React.createClass({
 
         <div className="panel panel-default" key={index}>
           <div className="panel-heading clearfix">
-            <h3 className="panel-title pull-left">{revision.headline}</h3>
+            <h3 className="panel-title pull-left">
+              <a class="btn btn-primary" role="button" data-toggle="collapse" href={"#collapse"+index} aria-expanded="false" aria-controls={"collapse"+index}>
+                {revision.headline}
+              </a>
+            </h3>
+            <small className="pull-right">
+              <a class="btn btn-primary" role="button" data-toggle="collapse" href={"#collapse"+index} aria-expanded="false" aria-controls={"collapse"+index}>
+                More
+              </a>
+            </small>
           </div>
-          <div className="panel-body">
+          <div className="panel-body collapse" id={"collapse"+index}>
             {diffs}
           </div>
           <div className="panel-footer">
-            <small>{revision.created_at}</small>
+            <small className="pull-right">
+              {moment(revision.created_at).fromNow()}
+            </small>
           </div>
         </div>
 
