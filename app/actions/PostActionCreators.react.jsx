@@ -21,7 +21,11 @@ module.exports = {
       .set('expiry', sessionStorage.getItem('expiry'))
       .set('client', sessionStorage.getItem('client'))
       .end(function(error, res){
-        ActionHelper.dispatch(ActionTypes.RECEIVE_POSTS, error ,res)
+				if (res.status == "401"){
+          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+        }else{
+					ActionHelper.dispatch(ActionTypes.RECEIVE_POSTS, error ,res)
+        }
       });
 	},
 
@@ -38,7 +42,11 @@ module.exports = {
       .set('expiry', sessionStorage.getItem('expiry'))
       .set('client', sessionStorage.getItem('client'))
       .end(function(error, res){
-        ActionHelper.dispatch(ActionTypes.RECEIVE_POST, error ,res)
+				if (res.status == "401"){
+          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+        }else{
+					ActionHelper.dispatch(ActionTypes.RECEIVE_POST, error ,res)
+        }
       });
 	},
 
@@ -57,7 +65,11 @@ module.exports = {
       .set('client', sessionStorage.getItem('client'))
       .send({ post: { title: title, body: body, is_wip: false } })
       .end(function(error, res){
-        ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
+				if (res.status == "401"){
+          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+        }else{
+					ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
+        }
       });
 
 	},
@@ -77,7 +89,11 @@ module.exports = {
       .set('client', sessionStorage.getItem('client'))
       .send({ post: { title: title, body: body, is_wip: true } })
       .end(function(error, res){
-        ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
+				if (res.status == "401"){
+          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+        }else{
+					ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
+        }
       });
   },
 
@@ -96,7 +112,11 @@ module.exports = {
       .set('client', sessionStorage.getItem('client'))
       .send({ post: { title: title, body: body, is_wip: false } })
       .end(function(error, res){
-        ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_POST, error ,res)
+				if (res.status == "401"){
+          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+        }else{
+					ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_POST, error ,res)
+        }
       });
 
 	},
@@ -116,7 +136,11 @@ module.exports = {
       .set('client', sessionStorage.getItem('client'))
       .send({ post: { title: title, body: body, is_wip: true } })
       .end(function(error, res){
-        ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_POST, error ,res)
+				if (res.status == "401"){
+          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+        }else{
+					ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_POST, error ,res)
+        }
       });
   },
 
@@ -132,7 +156,11 @@ module.exports = {
       .set('expiry', sessionStorage.getItem('expiry'))
       .set('client', sessionStorage.getItem('client'))
       .end(function(error, res){
-        ActionHelper.dispatch(ActionTypes.RECEIVE_DELETED_POST, error ,res)
+				if (res.status == "401"){
+          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+        }else{
+					ActionHelper.dispatch(ActionTypes.RECEIVE_DELETED_POST, error ,res)
+        }
       });
   }
 

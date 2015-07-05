@@ -19,7 +19,11 @@ module.exports = {
 	      .set('Accept', 'application/json')
 				.send({ search: { word: query } })
 	      .end(function(error, res){
-          ActionHelper.dispatch(ActionTypes.SEARCH_RESPONSE, error ,res)
+					if (res.status == "401"){
+	          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+	        }else{
+						ActionHelper.dispatch(ActionTypes.SEARCH_RESPONSE, error ,res)
+	        }
 	      });
 
 	}

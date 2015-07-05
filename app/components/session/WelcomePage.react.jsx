@@ -4,8 +4,10 @@ var PostActionCreators = require('../../actions/PostActionCreators.react.jsx');
 var RouteActionCreators = require('../../actions/RouteActionCreators.react.jsx');
 var PostStore = require('../../stores/PostStore.react.jsx');
 
+var ENTER_KEY = 13;
+
 var Result = React.createClass({
-  onSelect: function(){
+  _onSelect: function(){
     PostActionCreators.loadPost(this.props.post.id);
     RouteActionCreators.redirect("posts");
   },
@@ -13,7 +15,7 @@ var Result = React.createClass({
     var post = this.props.post;
     return (
       <div className="col-md-10 col-md-offset-1 search-result">
-        <h3><a onClick={this.onSelect}>{post.title}</a></h3>
+        <h3><a onClick={this._onSelect}>{post.title}</a></h3>
         <p className="lead search-text"><small>{post.body}</small></p>
       </div>
     )
@@ -71,6 +73,12 @@ var WelcomePage = React.createClass({
     this.setState({ posts: PostStore.getPosts() });
   },
 
+  _onHandleKeyDown: function (event) {
+		if (event.which === ENTER_KEY) {
+			this._onSubmit(event);
+		}
+	},
+
   _onSubmit: function(e) {
     e.preventDefault();
     this.setState({ posts: [] });
@@ -87,7 +95,7 @@ var WelcomePage = React.createClass({
 
           <div className="row spacer">
             <div className="col-md-6 col-md-offset-3">
-              <input type="text" ref="query" className="form-control" placeholder="Search for..."/>
+              <input type="text" ref="query" className="form-control" placeholder="Search for..." onKeyDown={this._onHandleKeyDown}/>
               <div className="col-md-4 col-md-offset-4">
                 <button className="btn btn-primary" type="button" onClick={this._onSubmit}>Knowledge 検索</button>
               </div>

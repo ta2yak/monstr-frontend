@@ -21,7 +21,11 @@ module.exports = {
       .set('expiry', sessionStorage.getItem('expiry'))
       .set('client', sessionStorage.getItem('client'))
       .end(function(error, res){
-        ActionHelper.dispatch(ActionTypes.RECEIVE_INDEX, error ,res)
+        if (res.status == "401"){
+          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+        }else{
+          ActionHelper.dispatch(ActionTypes.RECEIVE_INDEX, error ,res)
+        }
       });
   }
 

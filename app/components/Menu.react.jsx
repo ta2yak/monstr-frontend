@@ -17,7 +17,6 @@ var Menu = React.createClass({
   },
 
   render: function() {
-
     var menuItems = this.props.isLoggedIn ? (
 
       <div className="btn-group-justified">

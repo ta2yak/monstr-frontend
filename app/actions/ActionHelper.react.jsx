@@ -13,11 +13,13 @@ module.exports = {
   dispatch: function(actionType, error, res){
 
     header = res.header;
+    status = res.status;
     json = JSON.parse(res.text);
     errors = getErrors(json);
 
     MonstrAppDispatcher.handleServerAction({
       type: actionType,
+      status: status,
       header: header,
       json: json,
       errors: errors

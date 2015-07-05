@@ -27,7 +27,11 @@ module.exports = {
       })
       .set('Accept', 'application/json')
       .end(function(error, res) {
-        ActionHelper.dispatch(ActionTypes.LOGIN_RESPONSE, error ,res)
+        if (res.status == "401"){
+          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+        }else{
+          ActionHelper.dispatch(ActionTypes.LOGIN_RESPONSE, error ,res)
+        }
       });
 
   },
@@ -47,7 +51,11 @@ module.exports = {
       })
       .set('Accept', 'application/json')
       .end(function(error, res){
-        ActionHelper.dispatch(ActionTypes.LOGIN_RESPONSE, error ,res)
+        if (res.status == "401"){
+          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+        }else{
+          ActionHelper.dispatch(ActionTypes.LOGIN_RESPONSE, error ,res)
+        }
       });
   },
 

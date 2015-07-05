@@ -90,8 +90,8 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       if (action.errors) {
         _errors = action.errors;
       }else{
-        _successes = ["削除しました"];
         _post = {}
+      _successes = ["削除しました"];
       }
       PostStore.emitChange();
       break;

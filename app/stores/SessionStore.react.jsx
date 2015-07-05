@@ -54,6 +54,10 @@ var SessionStore = assign({}, EventEmitter.prototype, {
     return _successes;
   },
 
+  isError: function() {
+    return _errors.length > 0 ? true : false;
+  },
+
   getErrors: function() {
     return _errors;
   }
@@ -64,12 +68,11 @@ SessionStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
   _errors = []
   _successes = [];
 
-    var action = payload.action;
+  var action = payload.action;
 
   // reflesh auth on each request
   switch(payload.source) {
     case PayloadSources.SERVER_ACTION:
-
       if (action.header && action.header['access-token']) {
         _accessToken = action.header['access-token'];
         _uid = action.header.uid;
@@ -96,12 +99,15 @@ SessionStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
         _successes = ["Welcome to Monstr !!"]
       }
 
+      console.log(ActionTypes.LOGIN_RESPONSE)
       SessionStore.emitChange();
       break;
 
     case ActionTypes.LOGOUT:
       _accessToken = null;
-      _email = null;
+      _uid = null;
+      _expiry = null;
+      _client = null;
       sessionStorage.removeItem('accessToken');
       sessionStorage.removeItem('uid');
       sessionStorage.removeItem('client');
@@ -109,7 +115,6 @@ SessionStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       SessionStore.emitChange();
       break;
 
-      default:
   }
 
   return true;

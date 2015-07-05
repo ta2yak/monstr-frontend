@@ -63,6 +63,7 @@ var PostEditPage = React.createClass({
     e.preventDefault();
     this.setState({ errors: [], successes: [] });
     PostActionCreators.deletePost(this.state.post.id);
+    RouteActionCreators.redirect("posts");
   },
 
   render: function() {
