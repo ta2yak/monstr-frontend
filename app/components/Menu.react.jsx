@@ -61,6 +61,13 @@ var Menu = React.createClass({
             Home
           </button>
         </Link>
+        <Link to="posts">
+          <button className="btn btn-xs btn-primary btn-block">
+            <i className="mdi-editor-insert-drive-file"></i>
+            <br/>
+            POSTS
+          </button>
+        </Link>
         <Link to="login">
           <button className="btn btn-xs btn-primary btn-block">
             <i className="glyphicon glyphicon-log-in"></i>

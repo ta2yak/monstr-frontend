@@ -22,14 +22,10 @@ var PostIndexPage = React.createClass({
   },
 
   componentDidMount: function() {
-    if (!SessionStore.isLoggedIn()) {
-      RouteActionCreators.redirect('app');
-    }else{
-      PostStore.addChangeListener(this._onChange);
-      this.setState({
-          post: PostStore.getPost()
-      });
-    }
+    PostStore.addChangeListener(this._onChange);
+    this.setState({
+        post: PostStore.getPost()
+    });
   },
 
   componentWillUnmount: function() {
@@ -46,7 +42,7 @@ var PostIndexPage = React.createClass({
   render: function() {
     var errors = (this.state.errors.length > 0) ? <ErrorNotice errors={this.state.errors}/> : <div></div>;
     var html = this.state.post.body ? markdown.toHTML(this.state.post.body) : ""
-    var editButton = this.state.post.title ? (
+    var editButton = (SessionStore.isLoggedIn() && this.state.post.title) ? (
       <Link to="edit-post">
         <button className="btn btn-primary pull-right" type="button">修正する</button>
       </Link>

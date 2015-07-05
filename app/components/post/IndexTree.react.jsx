@@ -14,16 +14,12 @@ var PostIndexTree = React.createClass({
   },
 
   componentDidMount: function() {
-    if (!SessionStore.isLoggedIn()) {
-      RouteActionCreators.redirect('app');
-    }else{
-      PostStore.addChangeListener(this._onPostChange);
-      IndexStore.addChangeListener(this._onIndexChange);
-      IndexActionCreators.loadIndex();
-      this.setState({
-          currentPost: PostStore.getPost()
-      });
-    }
+    PostStore.addChangeListener(this._onPostChange);
+    IndexStore.addChangeListener(this._onIndexChange);
+    IndexActionCreators.loadIndex();
+    this.setState({
+        currentPost: PostStore.getPost()
+    });
   },
 
   componentWillUnmount: function() {
