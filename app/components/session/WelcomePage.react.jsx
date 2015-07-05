@@ -1,6 +1,25 @@
 var React = require('react');
 var SearchActionCreators = require('../../actions/SearchActionCreators.react.jsx');
+var PostActionCreators = require('../../actions/PostActionCreators.react.jsx');
+var RouteActionCreators = require('../../actions/RouteActionCreators.react.jsx');
 var PostStore = require('../../stores/PostStore.react.jsx');
+
+var Result = React.createClass({
+  onSelect: function(){
+    PostActionCreators.loadPost(this.props.post.id);
+    RouteActionCreators.redirect("posts");
+  },
+  render: function() {
+    var post = this.props.post;
+    return (
+      <div className="col-md-10 col-md-offset-1">
+        <h2><a onClick={this.onSelect}>{post.title}</a></h2>
+        <p className="lead">{post.body}</p>
+      </div>
+    )
+  }
+});
+
 
 var SearchResults = React.createClass({
   render: function() {
@@ -14,10 +33,7 @@ var SearchResults = React.createClass({
           {this.props.posts.map(function(post, index){
             return (
 
-            <div key={"post-"+index} className="col-md-10 col-md-offset-1">
-              <h2>{post.title}</h2>
-              <p className="lead">{post.body}</p>
-            </div>
+              <Result post={post} key={post.id} />
 
             );
           })}

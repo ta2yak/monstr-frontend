@@ -15,8 +15,9 @@ module.exports = {
 	  		type: ActionTypes.SEARCH
 	  	});
 
-	    request.get(APIEndpoints.SEARCH)
+	    request.post(APIEndpoints.SEARCH)
 	      .set('Accept', 'application/json')
+				.send({ search: { word: query } })
 	      .end(function(error, res){
           ActionHelper.dispatch(ActionTypes.SEARCH_RESPONSE, error ,res)
 	      });

@@ -52,6 +52,7 @@ var PostIndexPage = React.createClass({
     ) : <div></div>;
 
     var revisions = this.state.post.title ? this.state.post.revisions.map(function(revision, index){
+
       var diffs = revision.diff_text.split('\n').map(function(text, i){
           return (
             <p key={i}><small>{text}</small></p>
@@ -104,6 +105,7 @@ var PostIndexPage = React.createClass({
         </div>
 
         <div className="col-md-4">
+          <h3>Revisions.</h3>
           {revisions}
         </div>
 
