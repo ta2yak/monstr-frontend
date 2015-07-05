@@ -24,11 +24,18 @@ body {
 	margin-top: 10px;
 }
 
-.treeview .selected{
-	color: @light-blue;
+.search-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -webkit-text-overflow: ellipsis; /* Safari */
+  -o-text-overflow: ellipsis; /* Opera */
 }
 
 /* TreeViewに関するCSS */
+.treeview .selected{
+	color: @light-blue;
+}
 .treeview span.indent {
 	margin-left: 10px;
 	margin-right: 10px;
