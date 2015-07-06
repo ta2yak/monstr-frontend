@@ -68,6 +68,7 @@ var Menu = React.createClass({
             POSTS
           </button>
         </Link>
+        <div className="spacer" />
         <Link to="login">
           <button className="btn btn-xs btn-primary btn-block">
             <i className="glyphicon glyphicon-log-in"></i>

@@ -16,16 +16,8 @@ module.exports = {
 
     request.get(APIEndpoints.INDEX + "/all")
       .set('Accept', 'application/json')
-      .set('access-token', sessionStorage.getItem('accessToken'))
-      .set('uid', sessionStorage.getItem('uid'))
-      .set('expiry', sessionStorage.getItem('expiry'))
-      .set('client', sessionStorage.getItem('client'))
       .end(function(error, res){
-        if (res.status == "401"){
-          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
-        }else{
-          ActionHelper.dispatch(ActionTypes.RECEIVE_INDEX, error ,res)
-        }
+        ActionHelper.dispatch(ActionTypes.RECEIVE_INDEX, error ,res)
       });
   }
 
