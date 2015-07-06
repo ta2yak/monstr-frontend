@@ -9,7 +9,7 @@ var CHANGE_EVENT = 'change';
 var _posts = [];
 var _errors = [];
 var _successes= [];
-var _post = {};
+var _post = null;
 
 var PostStore = assign({}, EventEmitter.prototype, {
 
@@ -90,7 +90,7 @@ PostStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       if (action.errors) {
         _errors = action.errors;
       }else{
-        _post = {}
+        _post = null;
       _successes = ["削除しました"];
       }
       PostStore.emitChange();

@@ -41,7 +41,7 @@ var PostIndexTree = React.createClass({
 
   _genNode: function(nodes){
 
-    var selectedPost = this.state.currentPost;
+    var selectedPostID = this.state.currentPost ? this.state.currentPost.id : null;
 
     var navTree = function(nodes, depth){
 
@@ -74,7 +74,13 @@ var PostIndexTree = React.createClass({
 
         }else{
 
-          var selected = (selectedPost.id == node.post) ? "selected" : ""
+          // ここで selectedPostID が存在しない場合は1つめのPostを表示する
+          if (!selectedPostID){
+            selectedPostID = node.post;
+            PostActionCreators.loadPost(selectedPostID);
+          }
+
+          var selected = (selectedPostID == node.post) ? "selected" : ""
           return (
             <div className="accordion-inner" key={node.id}>
               {indents}

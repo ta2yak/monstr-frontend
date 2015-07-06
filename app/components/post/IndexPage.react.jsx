@@ -18,12 +18,10 @@ var moment = require('moment');
 var PostIndexPage = React.createClass({
 
   getInitialState: function() {
-    return { post: [], errors: [] };
+    return { post: null, errors: [] };
   },
 
   componentDidMount: function() {
-    console.log("componentDidMount")
-    console.log(PostStore.getPost())
     PostStore.addChangeListener(this._onChange);
     this.setState({
         post: PostStore.getPost()
@@ -43,14 +41,15 @@ var PostIndexPage = React.createClass({
 
   render: function() {
     var errors = (this.state.errors.length > 0) ? <ErrorNotice errors={this.state.errors}/> : <div></div>;
-    var html = this.state.post.body ? markdown.toHTML(this.state.post.body) : ""
-    var editButton = (SessionStore.isLoggedIn() && this.state.post.title) ? (
+    var title = this.state.post ? this.state.post.title : "";
+    var html = this.state.post ? markdown.toHTML(this.state.post.body) : "";
+    var editButton = (SessionStore.isLoggedIn() && this.state.post) ? (
       <Link to="edit-post">
         <button className="btn btn-primary pull-right" type="button">修正する</button>
       </Link>
     ) : <div></div>;
 
-    var revisions = this.state.post.title ? this.state.post.revisions.map(function(revision, index){
+    var revisions = this.state.post ? this.state.post.revisions.map(function(revision, index){
 
       var diffs = revision.diff_text.split('\n').map(function(text, i){
           return (
@@ -99,7 +98,7 @@ var PostIndexPage = React.createClass({
         <div className="col-md-6">
 
           <div className="col-md-12">
-            <h1>{this.state.post.title}</h1>
+            <h1>{title}</h1>
           </div>
 
           <div className="col-md-12">
