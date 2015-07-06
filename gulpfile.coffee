@@ -32,9 +32,9 @@ libs =
     'bootstrap-material-design/dist/css/roboto.min.css'
   ]
   static: [
-    'bootstrap/dist/fonts/**/*'
-    'bootcards/dist/fonts/**/*'
-    'bootstrap-material-design/dist/fonts/**/*'
+    'bootstrap/dist/**/*.+(eot|svg|ttf|woff|woff2)'
+    'bootcards/dist/**/*.+(eot|svg|ttf|woff|woff2)'
+    'bootstrap-material-design/dist/**/*.+(eot|svg|ttf|woff|woff2)'
   ]
 
 
