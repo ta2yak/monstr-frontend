@@ -35,6 +35,12 @@ libs =
     'bootstrap/dist/**/*.+(eot|svg|ttf|woff|woff2)'
     'bootcards/dist/**/*.+(eot|svg|ttf|woff|woff2)'
     'bootstrap-material-design/dist/**/*.+(eot|svg|ttf|woff|woff2)'
+    'bootstrap/dist/css/*.map'
+    'bootcards/dist/css/*.map'
+    'bootstrap-material-design/dist/css/*.map'
+    'bootstrap/dist/js/*.map'
+    'bootcards/dist/js/*.map'
+    'bootstrap-material-design/dist/js/*.map'
   ]
 
 

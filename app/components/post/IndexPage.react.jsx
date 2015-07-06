@@ -22,6 +22,8 @@ var PostIndexPage = React.createClass({
   },
 
   componentDidMount: function() {
+    console.log("componentDidMount")
+    console.log(PostStore.getPost())
     PostStore.addChangeListener(this._onChange);
     this.setState({
         post: PostStore.getPost()
@@ -33,6 +35,8 @@ var PostIndexPage = React.createClass({
   },
 
   _onChange: function() {
+    console.log("_onChange")
+    console.log(PostStore.getPost())
     this.setState({
         post: PostStore.getPost(),
         errors: PostStore.getErrors()
@@ -61,12 +65,12 @@ var PostIndexPage = React.createClass({
         <div className="panel panel-default" key={index}>
           <div className="panel-heading clearfix">
             <h3 className="panel-title pull-left">
-              <a class="btn btn-primary" role="button" data-toggle="collapse" href={"#collapse"+index} aria-expanded="false" aria-controls={"collapse"+index}>
+              <a data-toggle="collapse" href={"#collapse"+index} aria-expanded="false" aria-controls={"collapse"+index}>
                 {revision.headline}
               </a>
             </h3>
             <small className="pull-right">
-              <a class="btn btn-primary" role="button" data-toggle="collapse" href={"#collapse"+index} aria-expanded="false" aria-controls={"collapse"+index}>
+              <a data-toggle="collapse" href={"#collapse"+index} aria-expanded="false" aria-controls={"collapse"+index}>
                 More
               </a>
             </small>
