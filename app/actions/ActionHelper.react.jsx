@@ -10,6 +10,14 @@ var getErrors = function(json){
 
 module.exports = {
 
+  setAuthority: function(request){
+    request.set('access-token', sessionStorage.getItem('accessToken'))
+           .set('uid', sessionStorage.getItem('uid'))
+           .set('expiry', sessionStorage.getItem('expiry'))
+           .set('client', sessionStorage.getItem('client'))
+    return request;
+  },
+
   dispatch: function(actionType, error, res){
 
     header = res.header;
@@ -17,13 +25,17 @@ module.exports = {
     json = JSON.parse(res.text);
     errors = getErrors(json);
 
-    MonstrAppDispatcher.handleServerAction({
-      type: actionType,
-      status: status,
-      header: header,
-      json: json,
-      errors: errors
-    });
+    if (status == "401"){
+      ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+    }else{
+      MonstrAppDispatcher.handleServerAction({
+        type: actionType,
+        status: status,
+        header: header,
+        json: json,
+        errors: errors
+      });
+    }
 
   }
 

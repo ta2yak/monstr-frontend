@@ -14,18 +14,10 @@ module.exports = {
   		type: ActionTypes.LOAD_POSTS
   	});
 
-    request.get(APIEndpoints.POSTS)
-      .set('Accept', 'application/json')
-			.set('access-token', sessionStorage.getItem('accessToken'))
-      .set('uid', sessionStorage.getItem('uid'))
-      .set('expiry', sessionStorage.getItem('expiry'))
-      .set('client', sessionStorage.getItem('client'))
+    ActionHelper.setAuthority(request.get(APIEndpoints.POSTS))
+			.set('Accept', 'application/json')
       .end(function(error, res){
-				if (res.status == "401"){
-          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
-        }else{
-					ActionHelper.dispatch(ActionTypes.RECEIVE_POSTS, error ,res)
-        }
+				ActionHelper.dispatch(ActionTypes.RECEIVE_POSTS, error ,res)
       });
 	},
 
@@ -35,18 +27,10 @@ module.exports = {
   		postId: postId
   	});
 
-    request.get(APIEndpoints.POSTS + '/' + postId)
-      .set('Accept', 'application/json')
-			.set('access-token', sessionStorage.getItem('accessToken'))
-      .set('uid', sessionStorage.getItem('uid'))
-      .set('expiry', sessionStorage.getItem('expiry'))
-      .set('client', sessionStorage.getItem('client'))
+    ActionHelper.setAuthority(request.get(APIEndpoints.POSTS + '/' + postId))
+			.set('Accept', 'application/json')
       .end(function(error, res){
-				if (res.status == "401"){
-          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
-        }else{
-					ActionHelper.dispatch(ActionTypes.RECEIVE_POST, error ,res)
-        }
+				ActionHelper.dispatch(ActionTypes.RECEIVE_POST, error ,res)
       });
 	},
 
@@ -57,19 +41,11 @@ module.exports = {
   		body: body
   	});
 
-    request.post(APIEndpoints.POSTS)
-      .set('Accept', 'application/json')
-			.set('access-token', sessionStorage.getItem('accessToken'))
-      .set('uid', sessionStorage.getItem('uid'))
-      .set('expiry', sessionStorage.getItem('expiry'))
-      .set('client', sessionStorage.getItem('client'))
+    ActionHelper.setAuthority(request.post(APIEndpoints.POSTS))
+			.set('Accept', 'application/json')
       .send({ post: { title: title, body: body, is_wip: false } })
       .end(function(error, res){
-				if (res.status == "401"){
-          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
-        }else{
-					ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
-        }
+				ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
       });
 
 	},
@@ -81,19 +57,11 @@ module.exports = {
       body: body
     });
 
-    request.post(APIEndpoints.POSTS)
-      .set('Accept', 'application/json')
-			.set('access-token', sessionStorage.getItem('accessToken'))
-      .set('uid', sessionStorage.getItem('uid'))
-      .set('expiry', sessionStorage.getItem('expiry'))
-      .set('client', sessionStorage.getItem('client'))
+    ActionHelper.setAuthority(request.post(APIEndpoints.POSTS))
+			.set('Accept', 'application/json')
       .send({ post: { title: title, body: body, is_wip: true } })
       .end(function(error, res){
-				if (res.status == "401"){
-          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
-        }else{
-					ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
-        }
+				ActionHelper.dispatch(ActionTypes.RECEIVE_CREATED_POST, error ,res)
       });
   },
 
@@ -104,19 +72,11 @@ module.exports = {
   		body: body
   	});
 
-    request.put(APIEndpoints.POSTS + '/' + postId)
+    ActionHelper.setAuthority(request.put(APIEndpoints.POSTS + '/' + postId))
       .set('Accept', 'application/json')
-			.set('access-token', sessionStorage.getItem('accessToken'))
-      .set('uid', sessionStorage.getItem('uid'))
-      .set('expiry', sessionStorage.getItem('expiry'))
-      .set('client', sessionStorage.getItem('client'))
       .send({ post: { title: title, body: body, is_wip: false } })
       .end(function(error, res){
-				if (res.status == "401"){
-          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
-        }else{
-					ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_POST, error ,res)
-        }
+				ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_POST, error ,res)
       });
 
 	},
@@ -128,19 +88,11 @@ module.exports = {
       body: body
     });
 
-    request.put(APIEndpoints.POSTS + '/' + postId)
+    ActionHelper.setAuthority(request.put(APIEndpoints.POSTS + '/' + postId))
       .set('Accept', 'application/json')
-			.set('access-token', sessionStorage.getItem('accessToken'))
-      .set('uid', sessionStorage.getItem('uid'))
-      .set('expiry', sessionStorage.getItem('expiry'))
-      .set('client', sessionStorage.getItem('client'))
       .send({ post: { title: title, body: body, is_wip: true } })
       .end(function(error, res){
-				if (res.status == "401"){
-          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
-        }else{
-					ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_POST, error ,res)
-        }
+				ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_POST, error ,res)
       });
   },
 
@@ -149,18 +101,10 @@ module.exports = {
       type: ActionTypes.DELETE_POST
     });
 
-    request.del(APIEndpoints.POSTS + '/' + postId)
+    ActionHelper.setAuthority(request.del(APIEndpoints.POSTS + '/' + postId))
       .set('Accept', 'application/json')
-			.set('access-token', sessionStorage.getItem('accessToken'))
-      .set('uid', sessionStorage.getItem('uid'))
-      .set('expiry', sessionStorage.getItem('expiry'))
-      .set('client', sessionStorage.getItem('client'))
       .end(function(error, res){
-				if (res.status == "401"){
-          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
-        }else{
-					ActionHelper.dispatch(ActionTypes.RECEIVE_DELETED_POST, error ,res)
-        }
+				ActionHelper.dispatch(ActionTypes.RECEIVE_DELETED_POST, error ,res)
       });
   }
 

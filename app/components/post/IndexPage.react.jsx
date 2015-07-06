@@ -35,8 +35,6 @@ var PostIndexPage = React.createClass({
   },
 
   _onChange: function() {
-    console.log("_onChange")
-    console.log(PostStore.getPost())
     this.setState({
         post: PostStore.getPost(),
         errors: PostStore.getErrors()
