@@ -20,6 +20,7 @@ var Menu = React.createClass({
     var menuItems = this.props.isLoggedIn ? (
 
       <div className="btn-group-justified">
+        <div className="spacer" />
         <Link to="welcome">
           <button className="btn btn-xs btn-primary btn-block">
             <i className="glyphicon glyphicon-home"></i>
@@ -54,6 +55,7 @@ var Menu = React.createClass({
     ) : (
 
       <div className="btn-group-justified">
+        <div className="spacer" />
         <Link to="welcome">
           <button className="btn btn-xs btn-primary btn-block">
             <i className="glyphicon glyphicon-home"></i>
@@ -89,7 +91,7 @@ var Menu = React.createClass({
 
     return (
 
-      <div className="menu spacer well-material-teal-500">
+      <div className="menu well-material-teal-500">
         {menuItems}
       </div>
 

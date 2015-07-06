@@ -32,7 +32,7 @@ var MonstrApp = React.createClass({
     return (
       <div className="app container">
         <div className="row">
-          <div className="col-md-1">
+          <div className="col-md-1 menu-container">
             <Menu isLoggedIn={this.state.isLoggedIn} />
           </div>
           <div className="col-md-11">
