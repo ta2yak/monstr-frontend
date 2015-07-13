@@ -1,5 +1,10 @@
 @import "bower_components/bootstrap-material-design/less/material.less";
 
+html, body {
+    height: 100%;
+    background-color: white;
+}
+
 body {
   padding-top: 0px;
 }
@@ -13,8 +18,25 @@ body {
     margin-top: 40px; /* define margin as you see fit */
 }
 
-.menu-container {
+.fill {
+    min-height: 100%;
+    height: 100%;
+}
+
+.nav-container {
   padding-left:0px;
+  padding-right:0px;
+  margin-left:0px;
+  margin-right:0px;
+}
+
+.menu-container {
+  margin-left:0px;
+  margin-right:0px;
+  padding-left:0px;
+  padding-right:0px;
+  height: 100%;
+  min-height: 100%;
 }
 
 .menu{
@@ -25,7 +47,7 @@ body {
 
 .menu i{
 	font-size: 3.8em;
-	margin-top: 10px;
+	margin-top: 20px;
 }
 
 .search-text {

@@ -91,7 +91,7 @@ var Menu = React.createClass({
 
     return (
 
-      <div className="menu well-material-teal-500">
+      <div className="menu well-material-teal-500 fill">
         {menuItems}
       </div>
 

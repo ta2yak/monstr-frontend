@@ -66,7 +66,7 @@ var PostIndexTree = React.createClass({
                   <i className="mdi-file-folder-open"></i> {node.title}
                 </a>
               </div>
-              <div id={"collapse-"+node.id} className="accordion-body collapse">
+              <div id={"collapse-"+node.id} className="accordion-body collapse in">
                 {navTree(node.nodes, depth + 1)}
               </div>
             </div>
@@ -106,8 +106,12 @@ var PostIndexTree = React.createClass({
 
     return (
 
-      <div className="accordion treeview">
-        {treeCollapse}
+      <div className="row">
+        <div className="col-md-11 col-md-offset-1">
+          <div className="accordion treeview">
+            {treeCollapse}
+          </div>
+        </div>
       </div>
 
     );

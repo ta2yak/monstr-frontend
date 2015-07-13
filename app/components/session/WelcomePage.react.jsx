@@ -89,9 +89,7 @@ var WelcomePage = React.createClass({
   render: function() {
     return (
 
-      <div className="row spacer">
-
-        <div className="jumbotron">
+      <div className="row">
 
           <div className="row spacer">
             <div className="col-md-6 col-md-offset-3">
@@ -103,8 +101,6 @@ var WelcomePage = React.createClass({
           </div>
 
           <SearchResults posts={this.state.posts}/>
-
-        </div>
 
       </div>
 

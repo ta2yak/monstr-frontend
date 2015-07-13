@@ -1,4 +1,6 @@
 var MonstrAppDispatcher = require('../dispatcher/MonstrAppDispatcher.js');
+var MonstrConstants = require('../constants/MonstrConstants.js');
+var ActionTypes = MonstrConstants.ActionTypes;
 
 var getErrors = function(json){
   if (json['errors']) {
@@ -26,7 +28,13 @@ module.exports = {
     errors = getErrors(json);
 
     if (status == "401"){
-      ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+      MonstrAppDispatcher.handleServerAction({
+        type: ActionTypes.LOGOUT,
+        status: status,
+        header: header,
+        json: json,
+        errors: errors
+      });
     }else{
       MonstrAppDispatcher.handleServerAction({
         type: actionType,

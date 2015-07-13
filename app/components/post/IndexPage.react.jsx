@@ -87,11 +87,11 @@ var PostIndexPage = React.createClass({
 
     return (
 
-      <div className="row spacer">
+      <div className="row">
 
         {errors}
 
-        <div className="col-md-2">
+        <div className="col-md-3">
           <IndexTree/>
         </div>
 
@@ -113,7 +113,7 @@ var PostIndexPage = React.createClass({
 
         </div>
 
-        <div className="col-md-4">
+        <div className="col-md-3">
           <h3>Revisions.</h3>
           {revisions}
         </div>
