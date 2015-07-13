@@ -106,13 +106,9 @@ var PostIndexTree = React.createClass({
 
     return (
 
-      <div className="row">
-        <div className="col-md-11 col-md-offset-1">
           <div className="accordion treeview">
             {treeCollapse}
           </div>
-        </div>
-      </div>
 
     );
   }

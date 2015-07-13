@@ -87,35 +87,41 @@ var PostIndexPage = React.createClass({
 
     return (
 
-      <div className="row">
+      <div className="fill">
 
         {errors}
 
-        <div className="col-md-3">
-          <IndexTree/>
+        <div className="col-md-2 fill well-material-grey-100">
+          <div className="spacer">
+            <IndexTree/>
+          </div>
         </div>
 
         <div className="col-md-6">
+          <div className="spacer">
 
-          <div className="col-md-12">
-            <h1>{title}</h1>
-          </div>
-
-          <div className="col-md-12">
-            <div dangerouslySetInnerHTML={{__html: html}} />
-          </div>
-
-          <div className="col-md-12">
-            <div className="col-md-6 col-md-offset-6">
-              {editButton}
+            <div className="col-md-12">
+              <h1>{title}</h1>
             </div>
-          </div>
 
+            <div className="col-md-12">
+              <div dangerouslySetInnerHTML={{__html: html}} />
+            </div>
+
+            <div className="col-md-12">
+              <div className="col-md-6 col-md-offset-6">
+                {editButton}
+              </div>
+            </div>
+
+          </div>
         </div>
 
-        <div className="col-md-3">
-          <h3>Revisions.</h3>
-          {revisions}
+        <div className="col-md-4">
+          <div className="spacer">
+            <h3>Revisions.</h3>
+            {revisions}
+          </div>
         </div>
 
       </div>

@@ -1,7 +1,6 @@
 var React = require('react');
 var RouteHandler = require('react-router').RouteHandler;
 var Menu = require('../components/Menu.react.jsx');
-var Navbar = require('../components/Navbar.react.jsx');
 var SessionStore = require('../stores/SessionStore.react.jsx');
 var RouteStore = require('../stores/RouteStore.react.jsx');
 
@@ -36,11 +35,8 @@ var MonstrApp = React.createClass({
           <div className="col-md-1 menu-container fill">
             <Menu isLoggedIn={this.state.isLoggedIn} />
           </div>
-          <div className="col-md-11">
-            <div className="row">
-              <Navbar isLoggedIn={this.state.isLoggedIn} />
-            </div>
-            <div className="row">
+          <div className="col-md-11 fill content-container">
+            <div className="row fill">
               <RouteHandler />
             </div>
           </div>

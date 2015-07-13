@@ -23,9 +23,9 @@ var Menu = React.createClass({
         <div className="spacer" />
         <Link to="welcome">
           <button className="btn btn-xs btn-primary btn-block">
-            <i className="glyphicon glyphicon-home"></i>
+            <i className="mdi-action-search"></i>
             <br/>
-            Home
+            Search
           </button>
         </Link>
         <Link to="new-post">
@@ -43,6 +43,14 @@ var Menu = React.createClass({
           </button>
         </Link>
         <div className="spacer" />
+        <div className="spacer" />
+        <Link to="posts">
+          <button className="btn btn-xs btn-primary btn-block">
+            <i className="mdi-action-perm-identity"></i>
+            <br/>
+            USER
+          </button>
+        </Link>
         <a onClick={this._logout}>
           <button className="btn btn-xs btn-primary btn-block">
             <i className="mdi-action-settings-power"></i>
@@ -58,9 +66,9 @@ var Menu = React.createClass({
         <div className="spacer" />
         <Link to="welcome">
           <button className="btn btn-xs btn-primary btn-block">
-            <i className="glyphicon glyphicon-home"></i>
+            <i className="mdi-action-search"></i>
             <br/>
-            Home
+            Search
           </button>
         </Link>
         <Link to="posts">
@@ -70,6 +78,7 @@ var Menu = React.createClass({
             POSTS
           </button>
         </Link>
+        <div className="spacer" />
         <div className="spacer" />
         <Link to="login">
           <button className="btn btn-xs btn-primary btn-block">
