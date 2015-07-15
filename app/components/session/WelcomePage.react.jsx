@@ -89,7 +89,7 @@ var WelcomePage = React.createClass({
   render: function() {
     return (
 
-      <div className="row">
+      <div>
 
           <div className="row spacer">
             <div className="col-md-6 col-md-offset-3">

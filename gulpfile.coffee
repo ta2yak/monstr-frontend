@@ -8,7 +8,7 @@ sources =
   bower:  'bower.json'
   app:    'app/**/*'
   jsx:    'app/boot.jsx'
-  less:   'app/**/*.less'
+  less:   'app/design/less/*.less'
   static: 'public/**/*'
 
 dist =
