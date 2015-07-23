@@ -28,9 +28,11 @@ module.exports = {
       .set('Accept', 'application/json')
       .end(function(error, res) {
         if (res.status == "401"){
+          console.log("Session Signup Action 401");
           ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
         }else{
-          ActionHelper.dispatch(ActionTypes.LOGIN_RESPONSE, error ,res)
+          console.log("Session Signup Action 200");
+          ActionHelper.dispatch(ActionTypes.LOGIN_RESPONSE, error ,res);
         }
       });
 
@@ -46,15 +48,16 @@ module.exports = {
     request.post(APIEndpoints.LOGIN)
       .send({
         email: email,
-        password: password,
-        grant_type: 'password'
+        password: password
       })
       .set('Accept', 'application/json')
       .end(function(error, res){
         if (res.status == "401"){
+          console.log("Session Login Action 401");
           ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
         }else{
-          ActionHelper.dispatch(ActionTypes.LOGIN_RESPONSE, error ,res)
+          console.log("Session Login Action 200");
+          ActionHelper.dispatch(ActionTypes.LOGIN_RESPONSE, error ,res);
         }
       });
   },
@@ -63,6 +66,14 @@ module.exports = {
     MonstrAppDispatcher.handleViewAction({
       type: ActionTypes.LOGOUT
     });
+
+    ActionHelper.setAuthority(request.del(APIEndpoints.LOGOUT))
+      .set('Accept', 'application/json')
+      .end(function(error, res){
+        console.log("Session Logout Action");
+        ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res);
+      });
+
   }
 
 };

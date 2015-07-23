@@ -44,7 +44,7 @@ var Menu = React.createClass({
         </Link>
         <div className="spacer" />
         <div className="spacer" />
-        <Link to="posts">
+        <Link to="edit-user">
           <button className="btn btn-xs btn-primary btn-block">
             <i className="mdi-action-perm-identity"></i>
             <br/>

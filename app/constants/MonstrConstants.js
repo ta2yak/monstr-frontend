@@ -6,7 +6,9 @@ module.exports = {
 
   APIEndpoints: {
     LOGIN:          APIRoot + "/api/v1/auth/sign_in",
+    LOGOUT:          APIRoot + "/api/v1/auth/sign_out",
     REGISTRATION:   APIRoot + "/api/v1/auth",
+    USERS:           APIRoot + "/api/v1/me",
     SEARCH:         APIRoot + "/api/v1/search",
     INDEX:          APIRoot + "/api/v1/index",
     POSTS:          APIRoot + "/api/v1/posts"
@@ -31,6 +33,14 @@ module.exports = {
     SEARCH: "SEARCH",
     SEARCH_RESPONSE: "SEARCH_RESPONSE",
 
+    // User
+    LOAD_CURRENT_USER: "LOAD_CURRENT_USER",
+    RECEIVE_CURRENT_USER: "RECEIVE_CURRENT_USER",
+    UPDATE_USER: "UPDATE_USER",
+    RECEIVE_UPDATED_USER: "RECEIVE_UPDATED_USER",
+    DELETE_USER: "DELETE_USER",
+    RECEIVE_DELETED_USER: "RECEIVE_DELETED_USER",
+
     // Posts
     CREATE_POST: "CREATE_POST",
     RECEIVE_CREATED_POST: "RECEIVE_CREATED_POST",
@@ -38,13 +48,12 @@ module.exports = {
     RECEIVE_UPDATED_POST: "RECEIVE_UPDATED_POST",
     DELETE_POST: "DELETE_POST",
     RECEIVE_DELETED_POST: "RECEIVE_DELETED_POST",
-
     LOAD_POSTS: "LOAD_POSTS",
     RECEIVE_POSTS: "RECEIVE_POSTS",
-
     LOAD_POST: "LOAD_POST",
     RECEIVE_POST: "RECEIVE_POST",
 
+    // Index
     LOAD_INDEX: "LOAD_INDEX",
     RECEIVE_INDEX: "RECEIVE_INDEX"
   }

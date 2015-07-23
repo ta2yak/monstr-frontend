@@ -97,14 +97,11 @@ var PostIndexPage = React.createClass({
           </div>
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-6 fill content-container">
           <div className="spacer">
 
             <div className="col-md-12">
-              <h1>{title}</h1>
-            </div>
-
-            <div className="col-md-12">
+              <h3>{title}</h3>
               <div dangerouslySetInnerHTML={{__html: html}} />
             </div>
 
@@ -117,10 +114,12 @@ var PostIndexPage = React.createClass({
           </div>
         </div>
 
-        <div className="col-md-4">
+        <div className="col-md-4 fill content-container">
           <div className="spacer">
-            <h3>Revisions.</h3>
-            {revisions}
+            <div className="col-md-12">
+              <h3>Revisions.</h3>
+              {revisions}
+            </div>
           </div>
         </div>
 

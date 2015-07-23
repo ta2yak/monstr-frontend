@@ -34,8 +34,10 @@ body {
 .content-container {
   height: 100%;
   min-height: 100%;
+  max-height: 100%;
   padding-left: 0px;
   padding-right: 0px;
+  overflow: scroll;
 }
 
 .menu-container {
@@ -63,6 +65,11 @@ body {
   text-overflow: ellipsis;
   -webkit-text-overflow: ellipsis; /* Safari */
   -o-text-overflow: ellipsis; /* Opera */
+}
+
+/* Dropzoneに関するCSS */
+.dropzone {
+  border-color: @teal;
 }
 
 /* TreeViewに関するCSS */

@@ -1,7 +1,9 @@
 var React = require('react');
 var SessionActionCreators = require('../../actions/SessionActionCreators.react.jsx');
+var UserActionCreators = require('../../actions/UserActionCreators.react.jsx');
 var RouteActionCreators = require('../../actions/RouteActionCreators.react.jsx');
 var SessionStore = require('../../stores/SessionStore.react.jsx');
+var UserStore = require('../../stores/SessionStore.react.jsx');
 var ErrorNotice = require('../../components/common/ErrorNotice.react.jsx');
 
 var ENTER_KEY = 13;
@@ -14,15 +16,31 @@ var SignupPage = React.createClass({
 
   componentDidMount: function() {
     SessionStore.addChangeListener(this._onChange);
+    UserStore.addChangeListener(this._onUserChange);
   },
 
   componentWillUnmount: function() {
     SessionStore.removeChangeListener(this._onChange);
+    UserStore.removeChangeListener(this._onUserChange);
   },
 
   _onChange: function() {
-    if (SessionStore.isError) {
+    if (SessionStore.isError()) {
       this.setState({ errors: SessionStore.getErrors() });
+      SessionActionCreators.logout();
+    }else{
+      if (SessionStore.isLoggedIn()){
+        UserActionCreators.getCurrentUser();
+      }else{
+        this.setState({ errors: ["認証情報が取得できませんでした"] });
+      }
+    }
+  },
+
+  _onUserChange: function() {
+    if (UserStore.isError()) {
+      this.setState({ errors: UserStore.getErrors() });
+      SessionActionCreators.logout();
     }else{
       RouteActionCreators.redirect("welcome");
     }
