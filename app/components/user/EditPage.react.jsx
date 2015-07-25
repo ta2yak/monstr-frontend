@@ -33,7 +33,10 @@ var UserEditPage = React.createClass({
     if (UserStore.isError()){
       this.setState({errors: UserStore.getErrors()});
     }else{
-      this.setState({successes: UserStore.getSuccesses()});
+      this.setState({
+                      successes: UserStore.getSuccesses(),
+                      user:UserStore.getCurrentUser()
+                    });
     }
   },
 
@@ -53,7 +56,7 @@ var UserEditPage = React.createClass({
     var errors = (this.state.errors.length > 0) ? <ErrorNotice errors={this.state.errors}/> : <div></div>;
     var successes = (this.state.successes.length > 0) ? <SuccessNotice successes={this.state.successes}/> : <div></div>;
     var preview = (this.state.selectedAvatarFile) ? <img className="img-thumbnail" src={this.state.selectedAvatarFile.preview} /> : <div>ここに画像をドロップ</div>;
-    var currentAvatar = (this.state.user.avatar) ? <img className="img-thumbnail" src={this.state.user.avatar.thumb.url} /> : <div></div>;
+    var currentAvatar = (this.state.user.avatar) ? <img className="img-thumbnail" src={this.state.user.avatar.avatar.thumb.url} /> : <div></div>;
 
     return (
 

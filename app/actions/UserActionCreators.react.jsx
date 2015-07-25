@@ -34,19 +34,38 @@ module.exports = {
 			avatar: avatar
   	});
 
-    ActionHelper.setAuthority(request.put(APIEndpoints.USERS))
-      .set('Accept', 'application/json')
-			//.attach('user:avatar', avatar)
-      .send({ user: { name: name } })
-      .end(function(error, res){
-				if (res.status == "401"){
-          console.log("User Update Action 401");
-          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
-        }else{
-					console.log("User Update Action 200");
-					ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_USER, error ,res)
-        }
-      });
+		if (avatar) {
+
+			ActionHelper.setAuthority(request.put(APIEndpoints.USERS))
+	      .set('Accept', 'application/json')
+				.field('user[name]', name)
+				.attach('user[avatar]', avatar, avatar.name)
+	      .end(function(error, res){
+					if (res.status == "401"){
+	          console.log("User Update Action 401");
+	          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+	        }else{
+						console.log("User Update Action 200");
+						ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_USER, error ,res)
+	        }
+	      });
+
+		}else{
+
+			ActionHelper.setAuthority(request.put(APIEndpoints.USERS))
+	      .set('Accept', 'application/json')
+				.field('user[name]', name)
+	      .end(function(error, res){
+					if (res.status == "401"){
+	          console.log("User Update Action 401");
+	          ActionHelper.dispatch(ActionTypes.LOGOUT, error ,res)
+	        }else{
+						console.log("User Update Action 200");
+						ActionHelper.dispatch(ActionTypes.RECEIVE_UPDATED_USER, error ,res)
+	        }
+	      });
+
+		}
 
 	},
 
