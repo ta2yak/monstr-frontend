@@ -48,6 +48,12 @@ var PostIndexPage = React.createClass({
         <button className="btn btn-primary pull-right" type="button">修正する</button>
       </Link>
     ) : <div></div>;
+    var actions = (
+      <div className="col-md-6 col-md-offset-6">
+        {editButton}
+        <button type="button" className="btn btn-default pull-right" data-toggle="modal" data-target=".bs-rev-modal-lg">Revisions</button>
+      </div>
+    );
 
     var revisions = this.state.post ? this.state.post.revisions.map(function(revision, index){
 
@@ -57,30 +63,32 @@ var PostIndexPage = React.createClass({
           )
       });
 
+      var picture = revision.user.avatar ? revision.user.avatar.avatar.thumb.url : "http://lorempixel.com/56/56/people/6";
+
       return (
 
-        <div className="panel panel-default" key={index}>
-          <div className="panel-heading clearfix">
-            <h3 className="panel-title pull-left">
+      <div>
+        <div className="list-group-item" key={index}>
+
+          <div className="row-picture">
+            <img className="circle" src={picture} alt="icon"/>
+          </div>
+
+          <div className="row-content">
+            <div className="least-content">{moment(revision.created_at).fromNow()}</div>
+            <h4 className="list-group-item-heading">
               <a data-toggle="collapse" href={"#collapse"+index} aria-expanded="false" aria-controls={"collapse"+index}>
                 {revision.headline}
               </a>
-            </h3>
-            <small className="pull-right">
-              <a data-toggle="collapse" href={"#collapse"+index} aria-expanded="false" aria-controls={"collapse"+index}>
-                More
-              </a>
-            </small>
+            </h4>
+            <div className="list-group-item-text collapse" id={"collapse"+index}>
+              {diffs}
+            </div>
           </div>
-          <div className="panel-body collapse" id={"collapse"+index}>
-            {diffs}
-          </div>
-          <div className="panel-footer">
-            <small className="pull-right">
-              {moment(revision.created_at).fromNow()}
-            </small>
-          </div>
+
         </div>
+        <div className="list-group-separator"></div>
+      </div>
 
       )
     }) : <div></div>;
@@ -97,28 +105,36 @@ var PostIndexPage = React.createClass({
           </div>
         </div>
 
-        <div className="col-md-6 fill content-container">
-          <div className="spacer">
+        <div className="col-md-10 fill content-container">
 
-            <div className="col-md-12">
-              <h3>{title}</h3>
-              <div dangerouslySetInnerHTML={{__html: html}} />
-            </div>
-
-            <div className="col-md-12">
-              <div className="col-md-6 col-md-offset-6">
-                {editButton}
-              </div>
-            </div>
-
+          <div className="col-md-12">
+            {actions}
           </div>
+
+          <div className="col-md-12">
+            <h1>{title}</h1>
+            <hr/>
+            <div dangerouslySetInnerHTML={{__html: html}} />
+          </div>
+
+          <div className="col-md-12">
+            {actions}
+          </div>
+
         </div>
 
-        <div className="col-md-4 fill content-container">
-          <div className="spacer">
-            <div className="col-md-12">
-              <h3>Revisions.</h3>
-              {revisions}
+        <div className="modal fade bs-rev-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myRevModalLabel">
+          <div className="modal-dialog modal-lg">
+            <div classNmae="modal-content">
+              <div className="panel panel-default">
+                <div className="panel-heading clearfix">
+                  <h3 className="panel-title pull-left">Revisions</h3>
+                </div>
+                <div className="spacer"/>
+                <div className="list-group">
+                {revisions}
+                </div>
+              </div>
             </div>
           </div>
         </div>

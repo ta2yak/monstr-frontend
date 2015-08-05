@@ -83,7 +83,7 @@ var PostEditPage = React.createClass({
             <input type="text"　ref="title" defaultValue={this.state.post.title} className="form-control floating-label input-lg" placeholder="title (/ により階層分類が可能です ex. Application/Setup/Install)" />
           </div>
           <div className="col-md-12 spacer">
-            <textarea　ref="body" defaultValue={this.state.post.body} className="form-control floating-label" placeholder="Markdown Text" onChange={this._onUpdateMarkdown} rows="20" />
+            <textarea　ref="body" defaultValue={this.state.post.body} className="form-control floating-label" placeholder="Markdown Text" onChange={this._onUpdateMarkdown} rows="30" />
           </div>
 
           <div className="col-md-12">

@@ -71,7 +71,7 @@ var PostNewPage = React.createClass({
           </div>
 
           <div className="col-md-12 spacer">
-            <textarea　ref="body" className="form-control floating-label" placeholder="Markdown Text" onInput={this._onUpdateMarkdown} rows="20" />
+            <textarea　ref="body" className="form-control floating-label" placeholder="Markdown Text" onInput={this._onUpdateMarkdown} rows="30" />
           </div>
 
           <div className="col-md-12">
