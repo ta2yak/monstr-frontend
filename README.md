@@ -11,7 +11,7 @@ npm
 npm install -g bower  
 npm install -g gulp  
 
-npm install
-bower install
+npm install  
+bower install  
 gulp  
 gulp server  
