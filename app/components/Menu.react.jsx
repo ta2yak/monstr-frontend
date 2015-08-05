@@ -4,10 +4,34 @@ var Link = Router.Link;
 var SessionActionCreators = require('../actions/SessionActionCreators.react.jsx');
 var RouteActionCreators = require('../actions/RouteActionCreators.react.jsx');
 
+var SessionStore = require('../stores/SessionStore.react.jsx');
+var UserStore = require('../stores/UserStore.react.jsx');
+
+function getStateFromStores() {
+  return {
+    isLoggedIn: SessionStore.isLoggedIn(),
+    currentUser: UserStore.getCurrentUser()
+  };
+}
+
 var Menu = React.createClass({
 
-  propTypes: {
-    isLoggedIn: React.PropTypes.bool
+  getInitialState: function() {
+    return getStateFromStores();
+  },
+
+  componentDidMount: function() {
+    SessionStore.addChangeListener(this._onChange);
+    UserStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function() {
+    SessionStore.removeChangeListener(this._onChange);
+    UserStore.removeChangeListener(this._onChange);
+  },
+
+  _onChange: function() {
+    this.setState(getStateFromStores());
   },
 
   _logout: function(e) {
@@ -17,10 +41,20 @@ var Menu = React.createClass({
   },
 
   render: function() {
-    var menuItems = this.props.isLoggedIn ? (
+    var picture = "";
+    var name = "";
+    if (this.state.currentUser) {
+      picture = this.state.currentUser.avatar ? this.state.currentUser.avatar.avatar.thumb.url : "http://lorempixel.com/56/56/people/6";
+      name = this.state.currentUser.name;
+    }
+    var menuItems = this.state.isLoggedIn ? (
 
       <div className="btn-group-justified">
-        <div className="spacer" />
+        <Link to="welcome">
+          <button className="btn btn-xs btn-primary btn-block">
+            <img className="img-circle" src={picture} alt="icon"/>
+          </button>
+        </Link>
         <Link to="welcome">
           <button className="btn btn-xs btn-primary btn-block">
             <i className="mdi-action-search"></i>

@@ -35,6 +35,7 @@ var UserEditPage = React.createClass({
     }else{
       this.setState({
                       successes: UserStore.getSuccesses(),
+                      selectedAvatarFile: null,
                       user:UserStore.getCurrentUser()
                     });
     }
@@ -55,8 +56,8 @@ var UserEditPage = React.createClass({
   render: function() {
     var errors = (this.state.errors.length > 0) ? <ErrorNotice errors={this.state.errors}/> : <div></div>;
     var successes = (this.state.successes.length > 0) ? <SuccessNotice successes={this.state.successes}/> : <div></div>;
-    var preview = (this.state.selectedAvatarFile) ? <img className="img-thumbnail" src={this.state.selectedAvatarFile.preview} /> : <div>ここに画像をドロップ</div>;
-    var currentAvatar = (this.state.user.avatar) ? <img className="img-thumbnail" src={this.state.user.avatar.avatar.thumb.url} /> : <div></div>;
+    var currentAvatar = (this.state.user.avatar) ? <img className="img-thumbnail" src={this.state.user.avatar.avatar.url} /> : <div></div>;
+    var preview = (this.state.selectedAvatarFile) ? <img className="img-thumbnail" src={this.state.selectedAvatarFile.preview} /> : currentAvatar;
 
     return (
 
@@ -65,25 +66,27 @@ var UserEditPage = React.createClass({
         {successes}
         {errors}
 
-        <div className="col-md-6 col-md-offset-3">
-
-          <div className="col-md-3">
-            <Dropzone onDrop={this._onDrop} size={150} >
-              {preview}
-            </Dropzone>
-          </div>
-
-          <div className="col-md-9">
-            <div className="col-md-12">
-              {currentAvatar}
-              <input type="text"　ref="name" defaultValue={this.state.user.name} className="form-control floating-label" placeholder="名前" />
+        <div className="col-md-10 col-md-offset-1">
+            <div className="col-md-3">
+              <Dropzone onDrop={this._onDrop} size={150} >
+                {preview}
+              </Dropzone>
             </div>
-            <div className="col-md-12">
-              <button className="btn btn-primary pull-right" type="button" onClick={this._onUpdate}>更新</button>
+
+            <div className="col-md-6">
+
+              <div className="col-md-12 spacer">
+                <input type="text" ref="name" defaultValue={this.state.user.name} className="form-control" placeholder="名前" />
+              </div>
+
+              <div className="col-md-12 spacer">
+                <button className="btn btn-primary pull-right" type="button" onClick={this._onUpdate}>更新</button>
+              </div>
+
             </div>
-          </div>
 
         </div>
+
       </div>
 
     );

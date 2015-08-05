@@ -62,9 +62,11 @@ var PostIndexTree = React.createClass({
             <div className="accordion-group" key={node.id}>
               <div className="accordion-heading">
                 {indents}
+                <small>
                 <a className="accordion-toggle" data-toggle="collapse" href={"#collapse-"+node.id}>
                   <i className="mdi-file-folder-open"></i> {node.title}
                 </a>
+                </small>
               </div>
               <div id={"collapse-"+node.id} className="accordion-body collapse in">
                 {navTree(node.nodes, depth + 1)}
@@ -84,9 +86,11 @@ var PostIndexTree = React.createClass({
           return (
             <div className="accordion-inner" key={node.id}>
               {indents}
+              <small>
               <a className={selected} onClick={onSelect.bind(this, node.post)}>
                 <i className="mdi-action-description"></i> {node.title}
               </a>
+              </small>
             </div>
           );
 
