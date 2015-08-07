@@ -52,6 +52,10 @@ RouteStore.dispatchToken = MonstrAppDispatcher.register(function(payload) {
       router.transitionTo(action.route)
       break;
 
+    case ActionTypes.LOAD_POST:
+      router.transitionTo("posts_with_item", {id: action.postId})
+      break;
+
     // case ActionTypes.LOGIN_RESPONSE:
     //   if (SessionStore.isLoggedIn()) {
     //     router.transitionTo('app');

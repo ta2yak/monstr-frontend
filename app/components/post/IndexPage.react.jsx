@@ -16,6 +16,7 @@ var markdown = require('markdown').markdown;
 var moment = require('moment');
 
 var PostIndexPage = React.createClass({
+  mixins: [Router.State],
 
   getInitialState: function() {
     return { post: null, errors: [] };
@@ -23,9 +24,14 @@ var PostIndexPage = React.createClass({
 
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
-    this.setState({
-        post: PostStore.getPost()
-    });
+
+    if (this.getParams().id) {
+      PostActionCreators.loadPost(this.getParams().id);
+    }else{
+      this.setState({
+          post: PostStore.getPost()
+      });
+    }
   },
 
   componentWillUnmount: function() {

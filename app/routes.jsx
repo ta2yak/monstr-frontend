@@ -23,6 +23,7 @@ module.exports = (
     <Route name="new-post" path="/post/new" handler={PostNewPage}/>
     <Route name="edit-post" path="/post/edit" handler={PostEditPage}/>
     <Route name="posts" path="/posts" handler={PostsPage}/>
+    <Route name="posts_with_item" path="/posts/:id?" handler={PostsPage}/>
     <Route name="edit-user" path="/user/edit" handler={UserEditPage}/>
 </Route>
 );

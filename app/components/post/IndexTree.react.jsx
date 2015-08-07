@@ -1,4 +1,5 @@
 var React = require('react');
+var Router = require('react-router');
 
 var RouteActionCreators = require('../../actions/RouteActionCreators.react.jsx');
 var IndexActionCreators = require('../../actions/IndexActionCreators.react.jsx');
@@ -9,6 +10,8 @@ var IndexStore = require('../../stores/IndexStore.react.jsx');
 var PostStore = require('../../stores/PostStore.react.jsx');
 
 var PostIndexTree = React.createClass({
+  mixins: [Router.State],
+
   getInitialState: function() {
       return {data: [], currentPost: {}};
   },
@@ -17,9 +20,9 @@ var PostIndexTree = React.createClass({
     PostStore.addChangeListener(this._onPostChange);
     IndexStore.addChangeListener(this._onIndexChange);
     IndexActionCreators.loadIndex();
-    this.setState({
-        currentPost: PostStore.getPost()
-    });
+    if (this.getParams().id) {
+      PostActionCreators.loadPost(this.getParams().id);
+    }
   },
 
   componentWillUnmount: function() {
@@ -39,15 +42,21 @@ var PostIndexTree = React.createClass({
     });
   },
 
+  _getSelectedPostId: function(){
+    if (this.getParams().id) return this.getParams().id;
+    if (this.state.currentPost) return this.state.currentPost.id;
+    return null;
+  },
+
   _genNode: function(nodes){
 
-    var selectedPostID = this.state.currentPost ? this.state.currentPost.id : null;
+    var selectedPostID = this._getSelectedPostId();
 
     var navTree = function(nodes, depth){
 
       var onSelect = function(id){
         PostActionCreators.loadPost(id);
-      }
+      };
 
       var indents = [];
       for (var i = 0; i < depth - 1; i++) {
